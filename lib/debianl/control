@@ -1,0 +1,20 @@
+Source: #PACKAGE#
+Priority: optional
+Maintainer: #USERNAME# <#EMAIL#>
+Build-Depends: #BUILD_DEPS#
+Standards-Version: #POLICY#
+Section: libs
+
+Package: #PACKAGE#-dev
+Section: libdevel
+Architecture: any
+Depends: #PACKAGE#BROKEN (= ${Source-Version})
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
+
+Package: #PACKAGE#BROKEN
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

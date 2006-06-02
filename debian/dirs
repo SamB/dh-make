@@ -1,0 +1,3 @@
+usr/bin
+usr/share/debhelper/dh_make
+usr/share/lintian/overrides
