@@ -41,7 +41,6 @@ our @build_deps;
 our @filenames;
 our $filename;
 our ($email, $date);
-our $customer = '';
 
 sub process_file(@)
 {
@@ -119,7 +118,7 @@ sub show_help
 
 By Craig Small <csmall\@debian.org>
 Based on deb-make by Christoph Lameter <clameter\@debian.org>.
-Custom template support by Bruce Sass <bsass\@edmc.net>.
+Custom template support by Bruce Sass <bmsass\@shaw.ca>.
 EOF
 }
 
@@ -345,9 +344,9 @@ if (exists $PACKAGE_TYPES{$package_type})
 } else {
   print 'unknown';
 }
-if ( $customer ne "" )
+if ( $custom ne "" )
 {
-  print "\nCustomer template : $custom";
+  print "\nCustom template : $custom";
 }
 if ( $overlay ne "" )
 {
@@ -372,7 +371,7 @@ if ( ! $overlay eq "" )
   #setup for overlay mode
   $no_defaults = 1;
   $add_missing = 1;
-  $customer = $overlay;
+  $custom = $overlay;
 }
 get_package();
 
