@@ -19,10 +19,15 @@ dh-make (0.41) unstable; urgency=low
   * Removed escape characters out of version checking Closes: #343969
   * Some CFLAGS moved to LDFLAGS Closes: #338990
   * Added note that directory format is only for dh_make Closes: #330734
-  * dh_python before dh_installinti Closes: #334812
+  * dh_python before dh_installinit Closes: #334812
   * kernel rules use kdist_configure Closes: #342050
+  * Bruce Sass email change and customer to custom.
+  * Upgraded to standards version 3.7.2 Closes: #366697
+  * r option for creating orig file Closes: #364417
+  * example changelog changed Closes:
+  * Updated copyright templates Closes: #360640
 
- -- Craig Small <csmall@debian.org>  Tue,  7 Mar 2006 19:00:42 +1100
+ -- Craig Small <csmall@debian.org>  Fri,  2 Jun 2006 21:39:44 +1000
 
 dh-make (0.40) unstable; urgency=low
 

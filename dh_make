@@ -14,7 +14,7 @@ $Getopt::Long::autoabbrev = 0;
 
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
-our $POLICY_VERSION="3.6.2";
+our $POLICY_VERSION="3.7.2";
 our $DH_MAKE_VERSION="0.41";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
                    'k' => 'Kernel Module', 'b' => 'cdbs');
@@ -29,6 +29,7 @@ our $version="";
 our $fullname = "";
 our $source_file="";
 our $debian_native = 0;
+our $copy_dir_for_orig = 0;
 our $package_type="";
 our $CHANGELOG="";
 our $PRESERVE="";
@@ -65,6 +66,7 @@ sub process_file(@)
       $line =~ s/#EMAIL#/$main::email/g;
       $line =~ s/#DATE#/$main::date/g;
       $line =~ s/#SHORTDATE#/$main::shortdate/g;
+      $line =~ s/#YEAR#/$main::year/g;
       $line =~ s/#CHANGELOGS#/$main::CHANGELOG/g;
       $line =~ s/#PRESERVE#/ $main::PRESERVE/g;
 	  $line =~ s/#CONFIG_STATUS#/$main::CONFIG_STATUS/g;
@@ -103,6 +105,7 @@ sub show_help
   -e, --email <address>     use <address> as the maintainer e-mail address
   -n, --native              the program is Debian native, don\'t generate .orig
   -f, --file <file>         specify file to use as the original source archive
+  -r, --createorig          make a copy for the original source archive
   -s, --single              set package class to single
   -m, --multi               set package class to multiple binary
   -l, --library             set package class to library
@@ -128,6 +131,7 @@ sub parse_args
   if (GetOptions('copyright|c=s' => \$main::license,
               'email|e=s' => \$main::email,
               'file|f=s' => \$main::source_file,
+              'createorig|r' => \$main::copy_dir_for_orig,
 	      'help|h' => \$dohelp,
 	      'version|v' => \$doversion,
 	      'native|n' => \$main::debian_native,
@@ -365,6 +369,8 @@ $email = get_email();
 $date = get_date();
 our $shortdate = `date '+%B %e, %Y'`;
 chomp $shortdate;
+our $year = `date '+%Y'`;
+chomp $year;
 parse_args();
 if ( ! $overlay eq "" )
 {
@@ -427,15 +433,20 @@ if (! $debian_native)
         exit 1;
       }
     } else {
-      if (-d "..$fullname.orig")
+      if (-d "../$fullname.orig")
       {
         print "Skipping copying to $fullname.orig since $fullname.orig exists.\n";
       } else {
  	    if ( -f "../$fullname.orig.tar.gz")
 	    {
 	      print "Skipping copying to $fullname.orig since $fullname.org.tar.gz exists.\n";
-	    } else {
+	    } elsif ($copy_dir_for_orig) {
           system('cp', '-a', "../$fullname", "../$fullname.orig");
+	    } else {
+	      print "Could not find $package_name\_$version.orig.tar.gz\n";
+	      print "Either specify an alternate file to use with -f,\n";
+	      print "or add --createorig to create one.\n";
+	      exit 1;
 	    }
         }
      }

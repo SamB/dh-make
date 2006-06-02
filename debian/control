@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
 Build-Depends-Indep: debhelper  (>= 5)
-Standards-Version: 3.6.2
+Standards-Version: 3.7.2
 
 Package: dh-make
 Architecture: all
