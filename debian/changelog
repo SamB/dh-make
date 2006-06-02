@@ -26,6 +26,7 @@ dh-make (0.41) unstable; urgency=low
   * r option for creating orig file Closes: #364417
   * example changelog changed Closes:
   * Updated copyright templates Closes: #360640
+  * Build-depends-indep is now build-depends
 
  -- Craig Small <csmall@debian.org>  Fri,  2 Jun 2006 21:39:44 +1000
 
