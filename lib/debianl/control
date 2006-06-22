@@ -1,5 +1,5 @@
 Source: #PACKAGE#
-Priority: optional
+Priority: extra
 Maintainer: #USERNAME# <#EMAIL#>
 Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#

@@ -15,7 +15,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.7.2";
-our $DH_MAKE_VERSION="0.41";
+our $DH_MAKE_VERSION="0.42";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
                    'k' => 'Kernel Module', 'b' => 'cdbs');
 
@@ -38,7 +38,6 @@ our $custom = "";
 our $no_defaults = 0;
 our $overlay = "";
 our $forced_package_name="";
-our @build_deps;
 our @filenames;
 our $filename;
 our ($email, $date);
@@ -473,6 +472,9 @@ foreach $orig (@ORIG)
 
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $CDBS_CLASS );
 our $BUILD_DEPS = 'debhelper (>= 5)';
+if ($package_type eq "b") {
+  $BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
+}
 
 # Setup debian/rules
 if (-x "./configure" )
@@ -495,15 +497,15 @@ if (-x "./configure" )
   if ( -f 'Makefile.am' ) {
     # If it is a library then install into tmp
     if ( $package_type eq "l") {
-      $INSTALL="\$(MAKE) install DESTDIR=\$(CURDIR)/debian/tmp";
+      $INSTALL="\$(MAKE) DESTDIR=\$(CURDIR)/debian/tmp install";
     } else {
-      $INSTALL="\$(MAKE) install DESTDIR=\$(CURDIR)/debian/$package_name";
+      $INSTALL="\$(MAKE) DESTDIR=\$(CURDIR)/debian/$package_name install";
     }
   } else {
     if ( $package_type eq "l") {
-      $INSTALL="\$(MAKE) install prefix=\$(CURDIR)/debian/tmp/usr";
+      $INSTALL="\$(MAKE) prefix=\$(CURDIR)/debian/tmp/usr install";
     } else {
-      $INSTALL="\$(MAKE) install prefix=\$(CURDIR)/debian/$package_name/usr";
+      $INSTALL="\$(MAKE) prefix=\$(CURDIR)/debian/$package_name/usr install";
     }
   }
   $CLEAN="\$(MAKE) distclean\n".
@@ -530,9 +532,9 @@ if (-x "./configure" )
   $PHONY_CONFIGURE='configure';
   $DPKG_ARCH='';
   if ($package_type eq "l") {
-    $INSTALL="\$(MAKE) install DESTDIR=\$(CURDIR)/debian/tmp";
+    $INSTALL="\$(MAKE) DESTDIR=\$(CURDIR)/debian/tmp install";
   } else {
-    $INSTALL="\$(MAKE) install DESTDIR=\$(CURDIR)/debian/$package_name";
+    $INSTALL="\$(MAKE) DESTDIR=\$(CURDIR)/debian/$package_name install";
   }
   $CLEAN='$(MAKE) clean';
 }

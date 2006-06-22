@@ -1,8 +1,8 @@
 Source: #PACKAGE#
 Section: unknown
-Priority: optional
+Priority: extra
 Maintainer: #USERNAME# <#EMAIL#>
-Build-Depends: cdbs, debhelper (>= 4.1.0)
+Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#
 
 Package: #PACKAGE#

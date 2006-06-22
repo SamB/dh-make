@@ -1,3 +1,15 @@
+dh-make (0.42) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+  * Stopped shiiping the kde examples (Closes: #372287)
+  * debiank/rules is executable (Closes: #372768)
+  * de-hypened man page (Closes: #372777)
+  * templates changed to use compat level 5 (Closes: #370468)
+  * Default priority extra in templates (Closes: #373603)
+  * MAKE install var=xx => MAKE var=xx install (Closes: #374175)
+
+ -- Craig Small <csmall@debian.org>  Thu, 22 Jun 2006 11:08:40 +1000
+
 dh-make (0.41) unstable; urgency=low
 
   * Kernel module rules use sname Closes: #350938, #354883
