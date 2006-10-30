@@ -1,39 +1,40 @@
-#! /bin/sh
+#!/bin/sh
 # postinst script for modules package built from #PACKAGE#
+
+set -e
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
 #        * <old-postinst> `abort-upgrade' <new version>
 #        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
 #          <new-version>
+#        * <postinst> `abort-remove'
 #        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
 #          <failed-install-package> <version> `removing'
 #          <conflicting-package> <version>
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
-#
+
 
 case "$1" in
     configure)
-	  if [ -x /usr/sbin/update-devfsd ] ; then
-	        /usr/sbin/update-devfsd 2>/dev/null || true
-	  fi
-      modprobe foo 2>/dev/null || modprobe bar 2>/dev/null || true
-      # start or restart after install or upgrade
-      if test -x /usr/sbin/daemon ; then
-         if ! -e /var/run/daemon.pid ; then
-            /etc/init.d/daemon start || true
-         else
-            if test -n "$2" ; then
-               /etc/init.d/daemon restart || true
+        if [ -x /usr/sbin/update-devfsd ] ; then
+            /usr/sbin/update-devfsd 2>/dev/null || true
+        fi
+        modprobe foo 2>/dev/null || modprobe bar 2>/dev/null || true
+        # start or restart after install or upgrade
+        if test -x /usr/sbin/#PACKAGE# ; then
+            if ! -e /var/run/#PACKAGE#.pid ; then
+                /etc/init.d/#PACKAGE# start || true
+            else
+                if test -n "$2" ; then
+                   /etc/init.d/#PACKAGE# restart || true
+                fi
             fi
-         fi
-      fi
-
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
-
     ;;
 
     *)

@@ -20,4 +20,4 @@ The #PACKAGE#-source package can be used in several ways,
    and install a module specific to the system you are building on and is
    not under control of the packaging system.
 
- -- #USERNAME# <#EMAIL#>, #DATE#
+ -- #USERNAME# <#EMAIL#>  #DATE#

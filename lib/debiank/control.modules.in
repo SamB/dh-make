@@ -17,4 +17,4 @@ Description: #PACKAGE# modules for Linux (kernel _KVERS_).
  If you have compiled your own kernel, you will most likely need to build
  your own #PACKAGE#-modules. The #PACKAGE#-source package has been
  provided for use with the Debian's module-assistant or kernel-package
- utilities to produce a version of #PACKAGE#-module for your kernel.
+ utilities to produce a version of #PACKAGE#-modules for your kernel.

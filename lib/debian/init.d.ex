@@ -49,13 +49,20 @@ case "$1" in
 	# start-stop-daemon --stop --signal 1 --quiet --pidfile \
 	#	/var/run/$NAME.pid --exec $DAEMON
   #;;
-  restart|force-reload)
+  force-reload)
 	#
 	#	If the "reload" option is implemented, move the "force-reload"
 	#	option to the "reload" entry above. If not, "force-reload" is
-	#	just the same as "restart".
-	#
-	echo -n "Restarting $DESC: "
+	#	just the same as "restart" except that it does nothing if the
+	#   daemon isn't already running.
+	# check wether $DAEMON is running. If so, restart
+	start-stop-daemon --stop --test --quiet --pidfile \
+		/var/run/$NAME.pid --exec $DAEMON \
+	&& $0 restart \
+	|| exit 0
+	;;
+  restart)
+    echo -n "Restarting $DESC: "
 	start-stop-daemon --stop --quiet --pidfile \
 		/var/run/$NAME.pid --exec $DAEMON
 	sleep 1

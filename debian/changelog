@@ -7,8 +7,16 @@ dh-make (0.42) UNRELEASED; urgency=low
   * templates changed to use compat level 5 (Closes: #370468)
   * Default priority extra in templates (Closes: #373603)
   * MAKE install var=xx => MAKE var=xx install (Closes: #374175)
+  * Consitent formatting of maintainer script (Closes: #370488)
+  * Kernel module name consistent (Closes: #384085)
+  * bzip2 path was changed (Closes: #377523)
+  * fixes for cdbs template (Closes: #382042)
+  * Now supports ~ in upstream version number (Closes: #387465)
+  * fixed force-reload behaviour of init.d template to follow LSB
+    (Closes: #377292)
+  * README.Debian the same author line as in changelog (Closes: #379773)
 
- -- Craig Small <csmall@debian.org>  Thu, 22 Jun 2006 11:08:40 +1000
+ -- Craig Small <csmall@debian.org>  Mon, 30 Oct 2006 14:12:36 +1100
 
 dh-make (0.41) unstable; urgency=low
 
@@ -36,7 +44,7 @@ dh-make (0.41) unstable; urgency=low
   * Bruce Sass email change and customer to custom.
   * Upgraded to standards version 3.7.2 Closes: #366697
   * r option for creating orig file Closes: #364417
-  * example changelog changed Closes:
+  * example changelog changed Closes: #365953
   * Updated copyright templates Closes: #360640
   * Build-depends-indep is now build-depends
 

@@ -268,9 +268,9 @@ sub get_package
   my $pwd = `pwd`;
 
   if (( ($main::forced_package_name) && 
-        ($pwd =~ /.*\/($main::forced_package_name)-([0-9][0-9a-zA-Z+.-]*)$/)
+        ($pwd =~ /.*\/($main::forced_package_name)-([0-9][0-9a-zA-Z+.~-]*)$/)
 	  ) || (
-        ($pwd =~ /.*\/(.*)-([0-9][0-9a-zA-Z+.-]*)$/)
+        ($pwd =~ /.*\/(.*)-([0-9][0-9a-zA-Z+.~-]*)$/)
 	  ))
   {
     if ($main::forced_package_name) {
@@ -420,9 +420,9 @@ if (! $debian_native)
           system('cp', '-a', "$source_file", "../$package_name\_$version.orig.tar.gz");
 	} elsif ($source_file =~ /bz2$/ )
 	{
-	  if ( -x '/usr/bin/bzip2' && -x '/bin/gzip' )
+	  if ( -x '/bin/bzip2' && -x '/bin/gzip' )
 	  {
-	    system("/usr/bin/bzip2 -cd $source_file | /bin/gzip > ../$package_name\_$version.orig.tar.gz");
+	    system("/bin/bzip2 -cd $source_file | /bin/gzip > ../$package_name\_$version.orig.tar.gz");
 	  } else {
 	    die('Source file is a bz2 but bzip2 or gzip not available');
 	  }

@@ -19,9 +19,11 @@ set -e
 
 case "$1" in
     remove|upgrade|deconfigure)
-        ;;
+    ;;
+
     failed-upgrade)
-        ;;
+    ;;
+
     *)
         echo "prerm called with unknown argument \`$1'" >&2
         exit 1

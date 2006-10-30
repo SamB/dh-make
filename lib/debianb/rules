@@ -1,14 +1,6 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses cdbs.  Originaly written by Robert Millan.
-# This file is public domain.
   
-DEB_TAR_SRCDIR                  := #PACKAGE#-#VERSION#
-DEB_AUTO_CLEANUP_RCS            := yes
-
-# Add here any variable or target overrides you need
-
-  
-#CDBS_CLASS#
 include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/rules/tarball.mk
-include /usr/share/cdbs/1/rules/simple-patchsys.mk
+#CDBS_CLASS#
+
+# Add here any variable or target overrides you need.

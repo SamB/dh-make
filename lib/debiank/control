@@ -5,7 +5,7 @@ Maintainer: #USERNAME# <#EMAIL#>
 Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#
 
-Package: #PACKAGE#
+Package: #PACKAGE#-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: <insert up to 60 chars description> <insert long description, indented with spaces>
