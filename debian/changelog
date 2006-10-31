@@ -1,6 +1,5 @@
-dh-make (0.42) UNRELEASED; urgency=low
+dh-make (0.42) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Stopped shiiping the kde examples (Closes: #372287)
   * debiank/rules is executable (Closes: #372768)
   * de-hypened man page (Closes: #372777)
@@ -16,7 +15,7 @@ dh-make (0.42) UNRELEASED; urgency=low
     (Closes: #377292)
   * README.Debian the same author line as in changelog (Closes: #379773)
 
- -- Craig Small <csmall@debian.org>  Mon, 30 Oct 2006 14:12:36 +1100
+ -- Craig Small <csmall@debian.org>  Wed,  1 Nov 2006 08:30:21 +1100
 
 dh-make (0.41) unstable; urgency=low
 
