@@ -16,7 +16,7 @@ version=3
 # Uncommment to examine a FTP server
 #ftp://ftp.example.com/pub/#PACKAGE#-(.*)\.tar\.gz debian uupdate
 
-# Uncomment to find new files on sourceforge, for debscripts >= 2.9
+# Uncomment to find new files on sourceforge, for devscripts >= 2.9
 # http://sf.net/#PACKAGE#/#PACKAGE#-(.*)\.tar\.gz
 
 

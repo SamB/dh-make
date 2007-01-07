@@ -1,8 +1,19 @@
 dh-make (0.43) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * Used pwd environment so symlinks should be ok Closes: 311512, 328405
+  * debiank/rules target fixed Closes: 401069
+  * Naive packages can specify copyright Closes: #382336
+  * Removed duplicate author section from manpage.xml Closes: #376378
+  * watch examples use devscripts not debscripts as the name Closes:
+    #384541
+  * Emacsen uses /usr/share/info directory Closes: #396509
+  * Fixed exta typo in debiank control Closes: #401032
+  * config.* targets moved to reduce diff size Closes: #405764
+  * Removed duplicate cdbs build dep Closes: #399887
+  * License templates reformatted nicely Closes: #399820
 
- -- Craig Small <csmall@debian.org>  Wed,  1 Nov 2006 08:32:57 +1100
+ -- Craig Small <csmall@debian.org>  Mon,  8 Jan 2007 10:22:39 +1100
 
 dh-make (0.42) unstable; urgency=low
 

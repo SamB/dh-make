@@ -49,12 +49,8 @@ and docbook-xsl in your Build-Depends control field.
     <address>
       &dhemail;
     </address>
-    <author>
-      &dhfirstname;
-      &dhsurname;
-    </author>
     <copyright>
-      <year>2003</year>
+      <year>2007</year>
       <holder>&dhusername;</holder>
     </copyright>
     &dhdate;

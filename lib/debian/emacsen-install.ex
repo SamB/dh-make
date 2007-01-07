@@ -27,7 +27,7 @@ ELCDIR=/usr/share/${FLAVOR}/site-lisp/${PACKAGE}
 # Maybe somebody will write it.
 if test -x /usr/sbin/install-info-altdir; then
     echo install/${PACKAGE}: install Info links for ${FLAVOR}
-    install-info-altdir --quiet --section "" "" --dirname=${FLAVOR} /usr/info/${PACKAGE}.info.gz
+    install-info-altdir --quiet --section "" "" --dirname=${FLAVOR} /usr/share/info/${PACKAGE}.info.gz
 fi
 
 install -m 755 -d ${ELCDIR}

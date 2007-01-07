@@ -54,11 +54,11 @@ MA_DIR ?= /usr/share/modass
 # compiler), VERSION (the final package version string), PKGNAME (full
 # package name with KVERS included), DEB_DESTDIR (path to store DEBs)
   
-# The kdist_configure target is called by make-kpkg modules_config and
+# The kdist_config target is called by make-kpkg modules_config and
 # by kdist* rules by dependency. It should configure the module so it is
 # ready for compilation (mostly useful for calling configure).
 # prep-deb-files from module-assistant creates the neccessary debian/ files 
-kdist_configure: prep-deb-files
+kdist_config: prep-deb-files
   
 # the kdist_clean target is called by make-kpkg modules_clean and from
 # kdist* rules. It is responsible for cleaning up any changes that have

@@ -90,7 +90,7 @@ sub process_file(@)
 sub show_version
 {
   print "dh_make - Script to Debianize a regular source archive, version $main::DH_MAKE_VERSION\n\n";
-  print "Copyright (C) 1998-2006 Craig Small <csmall\@debian.org>\n";
+  print "Copyright (C) 1998-2007 Craig Small <csmall\@debian.org>\n";
   print "This is free software; see the source for copying conditions.  There is NO\n";
   print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
 }
@@ -191,7 +191,7 @@ sub parse_args
   #  $main::no_defaults = 1;
   #}
   $main::license = lc $main::license;
-  if ($main::license ne "" && grep(!/gpl|lgpl|artistic|bsd/, $main::license)) {
+  if ($main::license ne "" && !($main::license =~ /^(gpl|lgpl|artistic|bsd|blank)$/)) { 
     print "Copyright type \"$main::license\" is not gpl, lgpl, artistic or bsd\n";
     exit;
   }
@@ -265,7 +265,7 @@ sub get_email()
 
 sub get_package
 {
-  my $pwd = `pwd`;
+  my $pwd = $ENV{PWD};
 
   if (( ($main::forced_package_name) && 
         ($pwd =~ /.*\/($main::forced_package_name)-([0-9][0-9a-zA-Z+.~-]*)$/)
@@ -283,7 +283,6 @@ sub get_package
 	# Fullname stays as the original dir
     $main::fullname = $1 . "-"  . $2;
   } else {
-    my $pwd = cwd();
 	print <<"EOF";
 The directory name must be <package>-<version> for dh_make to work!
 I cannot understand the directory name or you have an invalid directory name!
@@ -403,6 +402,12 @@ if ( ! $no_defaults )
   }
 }
 
+# Debian native packages default to GPL, but it can be overwritten
+if ($debian_native && $main::license eq '')
+{
+  $main::license = 'gpl';
+}
+
 print_confirmation;
 
 if (! $debian_native)
@@ -486,6 +491,12 @@ if (-x "./configure" )
   $CONFIGURE="config.status: configure\n".
              "\tdh_testdir\n".
 			 "\t# Add here commands to configure the package.\n".
+			 "ifneq \"\$(wildcard /usr/share/misc/config.sub)\" \"\"\n".
+			 "\tcp -f /usr/share/misc/config.sub config.sub\n".
+			 "endif\n".
+			 "ifneq \"\$(wildcard /usr/share/misc/config.guess)\" \"\"\n".
+			 "\tcp -f /usr/share/misc/config.guess config.guess\n".
+			 "endif\n".
 			 "\t".'./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"'."\n";
   $DPKG_ARCH="# These are used for cross-compiling and for saving the configure script\n".
              "# from having to guess our platform (since we know it already)\n".
@@ -509,12 +520,7 @@ if (-x "./configure" )
     }
   }
   $CLEAN="\$(MAKE) distclean\n".
-         "ifneq \"\$(wildcard /usr/share/misc/config.sub)\" \"\"\n".
-		 "\tcp -f /usr/share/misc/config.sub config.sub\n".
-		 "endif\n".
-		 "ifneq \"\$(wildcard /usr/share/misc/config.guess)\" \"\"\n".
-		 "\tcp -f /usr/share/misc/config.guess config.guess\n".
-		 "endif\n";
+         "\trm -f config.sub config.guess";
   $BUILD_DEPS .= ', autotools-dev';
 } else {
   if (! -f 'Makefile' && ! -f 'makefile' && ! -f 'GNUmakefile')
