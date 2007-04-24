@@ -1,6 +1,5 @@
-dh-make (0.43) UNRELEASED; urgency=low
+dh-make (0.43) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Used pwd environment so symlinks should be ok Closes: 311512, 328405
   * debiank/rules target fixed Closes: 401069
   * Naive packages can specify copyright Closes: #382336
