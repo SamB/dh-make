@@ -18,14 +18,6 @@
 
 #DPKG_ARCH#
 
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
-
 # some default definitions, important!
 # 
 # Name of the source package
@@ -125,7 +117,7 @@ clean:
 	rm -f build-arch-stamp build-indep-stamp #CONFIGURE_STAMP#
 
 	# Add here commands to clean up after the build process.
-	-#CLEAN#
+	#CLEAN#
 
 	dh_clean
 

@@ -1,3 +1,16 @@
+dh-make (0.44) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+  * Locates bzip in multiple directories Closes: #40887
+  * Remove unsuded CFLAGS defs Closes: #353520
+  * Fixed typo in debianm/rules Closes: #439758
+  * Fixed up init.d and added an lsb example from JFS Closes: #439561
+  * Updated menu example Closes: #438907
+  * Changed 822-date to date -R Closes: #415795
+  * Remove 
+
+ -- Craig Small <csmall@debian.org>  Wed, 01 Aug 2007 09:56:02 +1000
+
 dh-make (0.43) unstable; urgency=low
 
   * Used pwd environment so symlinks should be ok Closes: 311512, 328405

@@ -15,7 +15,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.7.2";
-our $DH_MAKE_VERSION="0.43";
+our $DH_MAKE_VERSION="0.44";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
                    'k' => 'Kernel Module', 'b' => 'cdbs');
 
@@ -318,13 +318,13 @@ EOF
 sub get_date
 {
   my $tmpdate;
-  if (-x "/usr/bin/822-date")
+  if (-x "/bin/date")
   {
-    $tmpdate = `/usr/bin/822-date`;
+    $tmpdate = `/bin/date -R`;
     chomp($tmpdate);
     return $tmpdate;
   } else {
-    die "Unable to find 822-date program in /usr/bin!\n";
+    die "Unable to find date program in /bin!\n";
   }
 }
 
@@ -418,16 +418,17 @@ if (! $debian_native)
   } else {
     if ($source_file)
     {
-      if (-f $source_file)
+	if (-f $source_file)
       {
         if ($source_file =~ /gz$/ ) 
 	{
           system('cp', '-a', "$source_file", "../$package_name\_$version.orig.tar.gz");
 	} elsif ($source_file =~ /bz2$/ )
 	{
-	  if ( -x '/bin/bzip2' && -x '/bin/gzip' )
-	  {
-	    system("/bin/bzip2 -cd $source_file | /bin/gzip > ../$package_name\_$version.orig.tar.gz");
+	  if ( (-x '/bin/bzip2' or -x '/usr/bin/bzip2') && 
+	       (-x '/bin/gzip' or -x '/usr/bin/gzip'))
+	    {
+	    system("bzip2 -cd $source_file | gzip > ../$package_name\_$version.orig.tar.gz");
 	  } else {
 	    die('Source file is a bz2 but bzip2 or gzip not available');
 	  }
@@ -592,6 +593,11 @@ if ( ! $no_defaults )
     } else {
       die "Unable to find copyright template file $DHLIB/licenses/$license";
     }
+  }
+  # Remove the  README if a kernel package, we use the specific one
+  if ( $package_type eq 'k')
+  {
+	 unlink('README.Debian');
   }
 
   # Special Files
