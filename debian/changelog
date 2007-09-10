@@ -1,6 +1,5 @@
-dh-make (0.44) UNRELEASED; urgency=low
+dh-make (0.44) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Locates bzip in multiple directories Closes: #40887
   * Remove unsuded CFLAGS defs Closes: #353520
   * Fixed typo in debianm/rules Closes: #439758
