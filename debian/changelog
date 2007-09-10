@@ -2,8 +2,9 @@ dh-make (0.45) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
   * Finally (I hope) fixed manpage.xml.ex Closes: #383495
+  * lib control uses binary:Version Closes: #428228
 
- -- Craig Small <csmall@debian.org>  Tue, 11 Sep 2007 08:47:41 +1000
+ -- Craig Small <csmall@debian.org>  Tue, 11 Sep 2007 08:58:23 +1000
 
 dh-make (0.44) unstable; urgency=low
 

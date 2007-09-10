@@ -8,7 +8,7 @@ Section: libs
 Package: #PACKAGE#-dev
 Section: libdevel
 Architecture: any
-Depends: #PACKAGE#BROKEN (= ${Source-Version})
+Depends: #PACKAGE#BROKEN (= ${binary:Version})
 Description: <insert up to 60 chars description>
  <insert long description, indented with spaces>
 
