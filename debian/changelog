@@ -1,3 +1,9 @@
+dh-make (0.45) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Craig Small <csmall@debian.org>  Mon, 10 Sep 2007 14:13:40 +1000
+
 dh-make (0.44) unstable; urgency=low
 
   * Locates bzip in multiple directories Closes: #40887
