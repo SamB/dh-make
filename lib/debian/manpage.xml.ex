@@ -33,7 +33,11 @@ Notes for using docbook2x: docbook2x-man does not automatically create the
 AUTHOR(S) and COPYRIGHT sections. In this case, please add them manually as
 <refsect1> ... </refsect1>.
 
-Validation can be done using: `xmllint --noout --valid manpage.xml`
+To disable the automatic creation of the AUTHOR(S) and COPYRIGHT sections
+read /usr/share/doc/docbook-xsl/doc/manpages/authors.html. This file can be
+found in the docbook-xsl-doc-html package.
+
+Validation can be done using: `xmllint -''-noout -''-valid manpage.xml`
 
 General documentation about man-pages and man-page-formatting:
 man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
