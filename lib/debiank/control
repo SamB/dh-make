@@ -4,6 +4,7 @@ Priority: extra
 Maintainer: #USERNAME# <#EMAIL#>
 Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#
+Homepage: <insert the upstream URL, if relevant>
 
 Package: #PACKAGE#-utils
 Architecture: any

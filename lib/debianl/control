@@ -4,6 +4,7 @@ Maintainer: #USERNAME# <#EMAIL#>
 Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#
 Section: libs
+Homepage: <insert the upstream URL, if relevant>
 
 Package: #PACKAGE#-dev
 Section: libdevel
