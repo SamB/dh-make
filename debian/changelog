@@ -4,6 +4,7 @@ dh-make (0.45) UNRELEASED; urgency=low
   * Finally (I hope) fixed manpage.xml.ex Closes: #383495
   * lib control uses binary:Version Closes: #428228
   * Added Homepage: tag to control file Closes: #445678
+  * CMakeList.txt is not a document Closes: #422203
 
  -- Craig Small <csmall@debian.org>  Tue, 09 Oct 2007 08:52:19 +1000
 

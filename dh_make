@@ -458,7 +458,7 @@ if (! $debian_native)
    }
 }
 # Figure out where documentation is
-our @DOCS= split / |\n/, `ls -1 N[Ee][Ww][Ss] *[Ff][Aa][Qq]* *.[Tt][Xx][Tt] README* *.README [rR]eadme* *.[rR]eadme [Bb][Uu][Gg][Ss] *[tT][oO][dD][oO]* 2>/dev/null`;
+our @DOCS= split / |\n/, `ls -1 N[Ee][Ww][Ss] *[Ff][Aa][Qq]* *.[Tt][Xx][Tt] README* *.README [rR]eadme* *.[rR]eadme [Bb][Uu][Gg][Ss] *[tT][oO][dD][oO]* 2>/dev/null | grep -v '^CMakeList.txt'`;
 # What are our info files
 our @INFOS= split / |\n/, `find . -regex '.*\\.info\\(-[0-9]+\\)?'`;
 # Figure out where is the first changelog, assign other similar files to docs
