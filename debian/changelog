@@ -5,6 +5,7 @@ dh-make (0.45) UNRELEASED; urgency=low
   * lib control uses binary:Version Closes: #428228
   * Added Homepage: tag to control file Closes: #445678
   * CMakeList.txt is not a document Closes: #422203
+  * Offering use of dpatch. Closes: #409694
 
  -- Craig Small <csmall@debian.org>  Tue, 09 Oct 2007 08:52:19 +1000
 
@@ -60,7 +61,7 @@ dh-make (0.41) unstable; urgency=low
   * Kernel module rules use sname Closes: #350938, #354883
   * Typo removed from kernel rules on line 67 Closes: #348299
   * Removed conffiles.ex Closes: #345109
-  * example pre/post inst/rm have space removed from first line closes: #325221
+  * example pre/post inst/rm have space removed from first line Closes: #325221
   * Checks and bombs if there are extra options Closes: #337114
   * touch in rules file uses $@ variable Closes: #344971
   * updated jrv's email address Closes: #351432
@@ -135,7 +136,7 @@ dh-make (0.38) unstable; urgency=low
   * debianl/control has Section line for source Closes: #290360
   * Removed init call in preinst
 
- -- Craig Small <csmall@debian.org>  Wed,  2 Mar 2005 08:32:57 +1100
+ -- Craig Small <csmall@debian.org>  Wed, 2 Mar 2005 08:32:57 +1100
 
 dh-make (0.37) unstable; urgency=low
 
@@ -192,7 +193,7 @@ dh-make (0.35) unstable; urgency=low
   * getent correctly looks for username Closes: #211807
 
  -- Craig Small <csmall@debian.org>  Wed, 24 Sep 2003 14:21:18 +1000
-
+	
 dh-make (0.34) unstable; urgency=low
 
   * changed -a flag to -s Closes: #194357
@@ -220,7 +221,7 @@ dh-make (0.33) unstable; urgency=low
   * Better error messages Closes: #183053
   * GNU/Linux has been removed, its just Debian now Closes: #182484
 
- -- Craig Small <csmall@debian.org>  Wed,  5 Mar 2003 08:32:52 +1100
+ -- Craig Small <csmall@debian.org>  Wed, 5 Mar 2003 08:32:52 +1100
 
 dh-make (0.32) unstable; urgency=low
 
@@ -241,7 +242,7 @@ dh-make (0.32) unstable; urgency=low
   * Library dev files have libtool and pkgconfig files support, if they
     exist. Closes: #153791
 
- -- Craig Small <csmall@enc.com.au>  Mon,  6 Jan 2003 09:24:57 +1100
+ -- Craig Small <csmall@enc.com.au>  Mon, 6 Jan 2003 09:24:57 +1100
 
 dh-make (0.31) unstable; urgency=low
 
@@ -313,7 +314,7 @@ dh-make (0.27) unstable; urgency=low
   * pre/post example scripts exit1 with bad args Closes: #109836
   * -e entry in dh_make.1 fixed Closes: #110815
 
- -- Craig Small <csmall@eye-net.com.au>  Mon,  8 Oct 2001 11:55:17 +1000
+ -- Craig Small <csmall@eye-net.com.au>  Mon, 8 Oct 2001 11:55:17 +1000
 
 dh-make (0.26) unstable; urgency=low
 
@@ -337,7 +338,7 @@ dh-make (0.25) unstable; urgency=low
   * deleted add-mail-log info line in changelog as it did evil things.
     incidently Closes: #83040
 
- -- Craig Small <csmall@debian.org>  Tue,  6 Feb 2001 13:29:05 +1100
+ -- Craig Small <csmall@debian.org>  Tue, 6 Feb 2001 13:29:05 +1100
 
 dh-make (0.24) unstable; urgency=low
 
@@ -365,7 +366,7 @@ dh-make (0.23) unstable; urgency=low
   * Added an add-log-mailing-address to changelog example Closes: #72847
   * DH_COMPAT version upped to 2 in rules templates, Closes: #72883
 
- -- Craig Small <csmall@debian.org>  Fri,  7 Jul 2000 09:27:17 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 7 Jul 2000 09:27:17 +1000
 
 dh-make (0.22) unstable; urgency=low
 
@@ -385,10 +386,10 @@ dh-make (0.21) unstable; urgency=low
 
   * Removed useless install-stamp Closes: #49576
   * Added Jim's patch for infodir and example man page
-  *      Closes: #51350, #51755
+  * Closes: #51350, #51755
   * Added Jim's patch for libraries Closes: #51580
 
- -- Craig Small <csmall@debian.org>  Thu,  2 Dec 1999 09:58:31 +1100
+ -- Craig Small <csmall@debian.org>  Thu, 2 Dec 1999 09:58:31 +1100
 
 dh-make (0.20) unstable; urgency=low
 
@@ -402,7 +403,7 @@ dh-make (0.19) unstable; urgency=low
   * Fixed typo for native packages Closes: #45746
   * Updated rules files so they follow debhelper closer
 
- -- Craig Small <csmall@debian.org>  Fri,  1 Oct 1999 11:03:06 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 1 Oct 1999 11:03:06 +1000
 
 dh-make (0.18) unstable; urgency=low
 
@@ -414,7 +415,7 @@ dh-make (0.18) unstable; urgency=low
   * Fixed rules file Closes: #42651
   * Removes the old perl dependency
 
- -- Craig Small <csmall@debian.org>  Mon,  6 Sep 1999 14:18:39 +1000
+ -- Craig Small <csmall@debian.org>  Mon, 6 Sep 1999 14:18:39 +1000
 
 dh-make (0.17) unstable; urgency=low
 
@@ -431,15 +432,15 @@ dh-make (0.16) unstable; urgency=low
   * changelog uses #DATE# Closes: #40865
   * Now locates info files Closes: #35660
 
- -- Craig Small <csmall@debian.org>  Thu,  8 Jul 1999 11:02:50 +1000
+ -- Craig Small <csmall@debian.org>  Thu, 8 Jul 1999 11:02:50 +1000
 
 dh-make (0.15) unstable; urgency=low
 
-  * Changed Perl dependency to perl5 
+  * Changed Perl dependency to perl5
   * Misc file changes using supplied patch (Bug #40680)
   * Added dh_perl lines to examples
 
- -- Craig Small <csmall@debian.org>  Mon,  5 Jul 1999 08:57:42 +1000
+ -- Craig Small <csmall@debian.org>  Mon, 5 Jul 1999 08:57:42 +1000
 
 dh-make (0.14) unstable; urgency=low
 
@@ -448,7 +449,7 @@ dh-make (0.14) unstable; urgency=low
   * Case insensitve checks on users input for package type
   * dh_shlibdeps before gencontrol in libs type (Bug #39131)
 
- -- Craig Small <csmall@debian.org>  Fri,  2 Jul 1999 17:13:30 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 2 Jul 1999 17:13:30 +1000
 
 dh-make (0.13) unstable; urgency=low
 
@@ -460,7 +461,7 @@ dh-make (0.13) unstable; urgency=low
 
 dh-make (0.12) unstable; urgency=low
 
-  * Totally re-wrote dh_make binary to use perl 
+  * Totally re-wrote dh_make binary to use perl
   * dh_make less horribly broken (Bug #39985 )
   * Updated man pages and other suggested files (Bug #37678 )
   * Now use $LOGNAME instead of $USER (Bug #38797 )
@@ -477,7 +478,7 @@ dh-make (0.11) unstable; urgency=low
   * Fixed stupid syntax error (Bug #37048 #37156)
   * Added more patches to cleanup some code (Bug #37087 )
 
- -- Craig Small <csmall@debian.org>  Thu,  6 May 1999 23:44:05 +1000
+ -- Craig Small <csmall@debian.org>  Thu, 6 May 1999 23:44:05 +1000
 
 dh-make (0.10) unstable; urgency=low
 
@@ -504,7 +505,8 @@ dh-make (0.9) unstable; urgency=low
 
 dh-make (0.8) unstable; urgency=low
 
-  * Remove examples of stuff that doesn't work with debhelper (bug #29466 #31413 )
+  * Remove examples of stuff that doesn't work with debhelper
+    (Bug #29466 #31413 )
   * Fixed typo in single rules file (Bug #27749 )
   * rules templates now follow debhelper examples (Bug #26415 )
 
@@ -519,7 +521,8 @@ dh-make (0.7) unstable; urgency=low
 
 dh-make (0.6) unstable; urgency=low
 
-  * Fixed problems with multi packages not using the -i and -a flags. (Bug #26415)
+  * Fixed problems with multi packages not using the -i and -a flags. 
+    (Bug #26415)
   * Added upstream author into copyright template (Bug #25622 )
   * Upstream changelogs handled by dh_installchangelogs rather than
     dh_installdocs (Bug #25961 )
@@ -557,8 +560,5 @@ dh-make (0.1) unstable; urgency=low
 
   * Initial Release.
 
- -- Craig Small <csmall@debian.org>  Thu,  5 Mar 1998 12:18:10 +1100
+ -- Craig Small <csmall@debian.org>  Thu, 5 Mar 1998 12:18:10 +1100
 
-Local variables:
-mode: debian-changelog
-End:

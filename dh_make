@@ -22,6 +22,7 @@ my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
 our $DASHLINE="";
 
 our $license="";
+our $dpatch="";
 our $username="";
 our $package_name="";
 our $cap_package_name="";
@@ -79,6 +80,9 @@ sub process_file(@)
       $line =~ s/#DASHLINE#/$main::DASHLINE/g;
       $line =~ s/#PHONY_CONFIGURE#/$main::PHONY_CONFIGURE/g;
       $line =~ s/#CDBS_CLASS#/$main::CDBS_CLASS/g;
+      $line =~ s/#PATCH_CLASS#/$main::PATCH_CLASS/g;
+      $line =~ s/#PATCH_CLEAN#/$main::PATCH_CLEAN/g;
+      $line =~ s/#PATCH_STAMP#/$main::PATCH_STAMP/g;
       $line =~ s/#BUILD_DEPS#/$main::BUILD_DEPS/g;
 
       print OUT $line;
@@ -101,6 +105,7 @@ sub show_help
   Usage: dh_make [options]
   -c, --copyright <type>    use <type> of license in copyright file
                             (gpl|lgpl|artistic|bsd)
+      --dpatch              using dpatch to maintain patches
   -e, --email <address>     use <address> as the maintainer e-mail address
   -n, --native              the program is Debian native, don\'t generate .orig
   -f, --file <file>         specify file to use as the original source archive
@@ -128,6 +133,7 @@ sub parse_args
 {
   my ($dohelp,$doversion, $single,$multi,$library, $kmod,$cdbs );
   if (GetOptions('copyright|c=s' => \$main::license,
+              'dpatch' => \$dpatch,
               'email|e=s' => \$main::email,
               'file|f=s' => \$main::source_file,
               'createorig|r' => \$main::copy_dir_for_orig,
@@ -339,6 +345,7 @@ print "Version         : $version\n";
 print "License         : $license";
 print 'blank' if $license eq '';
 print "\n";
+print "Using dpatch    : ",($dpatch?"yes":"no"),"\n";
 print "Type of Package : ";
 if (exists $PACKAGE_TYPES{$package_type})
 {
@@ -475,11 +482,23 @@ foreach $orig (@ORIG)
   $PRESERVE="$PRESERVE --exclude $orig";
 }
 
-
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $CDBS_CLASS );
 our $BUILD_DEPS = 'debhelper (>= 5)';
 if ($package_type eq "b") {
   $BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
+}
+
+our ($PATCH_CLASS,$PATCH_STAMP,$PATCH_CLEAN);
+if ($dpatch) {
+	if ($package_type eq "b") {
+		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/dpatch.mk";
+	}
+	else {
+		$PATCH_CLASS = "include /usr/share/dpatch/dpatch.make";
+		$PATCH_STAMP = "patch-stamp";
+		$PATCH_CLEAN = "unpatch";
+		$BUILD_DEPS = 'dpatch, '.$BUILD_DEPS;
+	}
 }
 
 # Setup debian/rules

@@ -18,26 +18,29 @@ export DH_OPTIONS
 
 #DPKG_ARCH#
 
+
+#PATCH_CLASS#
+
 #CONFIGURE#
 
 #Architecture 
 build: build-arch build-indep
 
 build-arch: build-arch-stamp
-build-arch-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS#
+build-arch-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 
 	# Add here commands to compile the arch part of the package.
 	#$(MAKE) 
 	touch $@
 
 build-indep: build-indep-stamp
-build-indep-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS#
+build-indep-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 
 	# Add here commands to compile the indep part of the package.
 	#$(MAKE) doc
 	touch $@
 
-clean:
+clean: #PATCH_CLEAN#
 	dh_testdir
 	dh_testroot
 	rm -f build-arch-stamp build-indep-stamp #CONFIGURE_STAMP#

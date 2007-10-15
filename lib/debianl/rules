@@ -12,6 +12,8 @@
 
 #DPKG_ARCH#
 
+#PATCH_CLASS#
+
 # shared library versions, option 1
 version=2.0.5
 major=2
@@ -24,7 +26,7 @@ major=2
 #CONFIGURE#
 
 build: build-stamp
-build-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS#
+build-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 	dh_testdir
 
 	# Add here commands to compile the package.
@@ -32,7 +34,7 @@ build-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS#
 
 	touch $@
 
-clean:
+clean: #PATCH_CLEAN#
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp #CONFIGURE_STAMP#
