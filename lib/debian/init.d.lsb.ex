@@ -46,7 +46,6 @@ LOGDIR=/var/log/#PACKAGE#  # Log directory to use
 PIDFILE=/var/run/$NAME.pid 
 
 test -x $DAEMON || exit 0
-test -x $DAEMON_WRAPPER || exit 0
 
 . /lib/lsb/init-functions
 
@@ -54,10 +53,19 @@ test -x $DAEMON_WRAPPER || exit 0
 # at /etc/default/$NAME
 DAEMON_OPTS=""          # Additional options given to the server 
 
-DODTIME=10              # Time to wait for the server to die, in seconds
+DIETIME=10              # Time to wait for the server to die, in seconds
                         # If this value is set too low you might not
                         # let some servers to die gracefully and
                         # 'restart' will not work
+
+#STARTIME=2             # Time to wait for the server to start, in seconds
+                        # If this value is set each time the server is
+                        # started (on start or restart) the script will
+                        # stall to try to determine if it is running
+                        # If it is not set and the server takes time
+                        # to setup a pid file the log message might 
+                        # be a false positive (says it did not start
+                        # when it actually did)
                         
 LOGFILE=$LOGDIR/$NAME.log  # Server logfile
 #DAEMONUSER=#PACKAGE#   # Users to run the daemons as. If this value
@@ -111,7 +119,7 @@ running() {
     # No pidfile, probably no daemon present
     [ ! -f "$PIDFILE" ] && return 1
     pid=`cat $PIDFILE`
-    running_pid $pid $DAEMON_WRAPPER || return 1
+    running_pid $pid $DAEMON || return 1
     return 0
 }
 
@@ -185,15 +193,20 @@ case "$1" in
             log_end_msg 0
             exit 0
         fi
-        if start_server && running ;  then
-            # It's ok, the server started and is running
-            log_end_msg 0
-        else
-            # Either we could not start it or it is not running
-            # after we did
+        if start_server ; then
             # NOTE: Some servers might die some time after they start,
-            # this code does not try to detect this and might give
-            # a false positive (use 'status' for that)
+            # this code will detect this issue if STARTTIME is set
+            # to a reasonable value
+            [ -n "$STARTTIME" ] && sleep $STARTTIME # Wait some time 
+            if  running ;  then
+                # It's ok, the server started and is running
+                log_end_msg 0
+            else
+                # It is not running after we did start
+                log_end_msg 1
+            fi
+        else
+            # Either we could not start it
             log_end_msg 1
         fi
 	;;
@@ -226,6 +239,7 @@ case "$1" in
         # Wait some sensible amount, some server need this
         [ -n "$DIETIME" ] && sleep $DIETIME
         start_server
+        [ -n "$STARTTIME" ] && sleep $STARTTIME
         running
         log_end_msg $?
 	;;
