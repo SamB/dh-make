@@ -517,12 +517,16 @@ if (-x "./configure" )
 			 "ifneq \"\$(wildcard /usr/share/misc/config.guess)\" \"\"\n".
 			 "\tcp -f /usr/share/misc/config.guess config.guess\n".
 			 "endif\n".
-			 "\t".'./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"'."\n";
+			 "\t".'./configure $(CROSS) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"'."\n";
   $DPKG_ARCH="# These are used for cross-compiling and for saving the configure script\n".
              "# from having to guess our platform (since we know it already)\n".
 			 'DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)'."\n".
-			 'DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)'."\n";
-
+			 'DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)'."\n".
+			 'ifneq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))'."\n".
+			 'CROSS= --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)'."\n".
+			 'else'."\n".
+			 'CROSS= --build $(DEB_BUILD_GNU_TYPE)'."\n".
+			 'endif'."\n";
 
   # If it is automaked, use DESTDIR insteadof prefix
   if ( -f 'Makefile.am' ) {
