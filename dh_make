@@ -451,7 +451,7 @@ if (! $debian_native)
       } else {
  	    if ( -f "../$fullname.orig.tar.gz")
 	    {
-	      print "Skipping copying to $fullname.orig since $fullname.org.tar.gz exists.\n";
+	      print "Skipping copying to $fullname.orig since $fullname.orig.tar.gz exists.\n";
 	    } elsif ($copy_dir_for_orig) {
           system('cp', '-a', "../$fullname", "../$fullname.orig");
 	    } else {
