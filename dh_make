@@ -543,7 +543,7 @@ if (-x "./configure" )
       $INSTALL="\$(MAKE) prefix=\$(CURDIR)/debian/$package_name/usr install";
     }
   }
-  $CLEAN="\$(MAKE) distclean\n".
+  $CLEAN="[ ! -f Makefile ] || \$(MAKE) distclean\n".
          "\trm -f config.sub config.guess";
   $BUILD_DEPS .= ', autotools-dev';
 } else {

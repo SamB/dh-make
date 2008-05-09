@@ -15,6 +15,8 @@ dh-make (0.45) UNRELEASED; urgency=low
   * Fix typo in dh_make message. Closes: #431316
   * Fix typo in init.d.lsb, thanks to Yauhen Kharuzhy. Closes: #448854
   * Correct errors in init.d, thanks to Marcos Talau. Closes: #453896
+  * Ignore a missing Makefile in clean targets, but not other errors.
+    Thanks to Sune Vuorela. Closes: #468774
 
  -- Tobias Toedter <toddy@debian.org>  Fri, 09 May 2008 11:46:09 +0200
 
