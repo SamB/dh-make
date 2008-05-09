@@ -1,6 +1,4 @@
-dh-make (0.45) UNRELEASED; urgency=low
-
-  * NOT RELEASED YET
+dh-make (0.45) unstable; urgency=low
 
   [ Craig Small ]
   * Finally (I hope) fixed manpage.xml.ex Closes: #383495
@@ -27,7 +25,7 @@ dh-make (0.45) UNRELEASED; urgency=low
     to Nelson A. de Oliveira. Closes: #464948
   * Use untranslated dates for manpages. Closes: #447752
 
- -- Craig Small <csmall@debian.org>  Fri, 09 May 2008 22:36:09 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 09 May 2008 22:41:38 +1000
 
 dh-make (0.44) unstable; urgency=low
 
