@@ -144,13 +144,13 @@ stop_server() {
         if [ -z "$DAEMONUSER" ] ; then
             start-stop-daemon --stop --quiet --pidfile $PIDFILE \
                         --exec $DAEMON
-            errcode=$
+            errcode=$?
         else
 # if we are using a daemonuser then look for process that match
             start-stop-daemon --stop --quiet --pidfile $PIDFILE \
                         --user $DAEMONUSER \
                         --exec $DAEMON
-            errcode=$
+            errcode=$?
         fi
 
 	return $errcode
