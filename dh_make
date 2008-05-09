@@ -94,7 +94,7 @@ sub process_file(@)
 sub show_version
 {
   print "dh_make - Script to Debianize a regular source archive, version $main::DH_MAKE_VERSION\n\n";
-  print "Copyright (C) 1998-2007 Craig Small <csmall\@debian.org>\n";
+  print "Copyright (C) 1998-2008 Craig Small <csmall\@debian.org>\n";
   print "This is free software; see the source for copying conditions.  There is NO\n";
   print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
 }
