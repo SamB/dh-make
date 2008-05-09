@@ -54,7 +54,7 @@ running()
     [ ! -f "$PIDFILE" ] && return 1
     # Obtain the pid and check it against the binary name
     pid=`cat $PIDFILE`
-    running_pid $pid $NAME || return 1
+    running_pid $pid $DAEMON || return 1
     return 0
 }
 
@@ -83,7 +83,7 @@ case "$1" in
 	echo -n "Starting $DESC: "
 	start-stop-daemon --start --quiet --pidfile $PIDFILE \
 		--exec $DAEMON -- $DAEMON_OPTS
-        if running then
+        if running ; then
             echo "$NAME."
         else
             echo " ERROR."
@@ -98,7 +98,7 @@ case "$1" in
   force-stop)
 	echo -n "Forcefully stopping $DESC: "
         force_stop
-        if ! running then
+        if ! running ; then
             echo "$NAME."
         else
             echo " ERROR."
