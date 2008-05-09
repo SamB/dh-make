@@ -17,6 +17,8 @@ dh-make (0.45) UNRELEASED; urgency=low
   * Correct errors in init.d, thanks to Marcos Talau. Closes: #453896
   * Ignore a missing Makefile in clean targets, but not other errors.
     Thanks to Sune Vuorela. Closes: #468774
+  * Update to Standards-Version 3.7.3 in generated templates, thanks
+    to Nelson A. de Oliveira. Closes: #464948
 
  -- Tobias Toedter <toddy@debian.org>  Fri, 09 May 2008 11:46:09 +0200
 
