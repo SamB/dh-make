@@ -2,8 +2,8 @@ Source: dh-make
 Section: devel
 Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
-Build-Depends: debhelper  (>= 5)
-Standards-Version: 3.7.2
+Build-Depends: debhelper  (>= 6)
+Standards-Version: 3.7.3
 
 Package: dh-make
 Architecture: all

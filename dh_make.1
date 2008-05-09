@@ -1,4 +1,4 @@
-.TH DH_MAKE 8 "7 March 2006" "Debian Project" \" -*- nroff -*-
+.TH DH_MAKE 8 "26 January 2008" "Debian Project" \" -*- nroff -*-
 .SH NAME
 dh_make \- Debianize a regular source archive
 .SH SYNOPSIS
@@ -151,23 +151,61 @@ successfully.
 .TP
 .I \-v, \-\-version
 Show the program name and version, and exit successfully.
+.SH ENVIRONMENT
+The following enviornment settings are used by \fBdh\_make\fR:
+.TP
+.B DEBEMAIL
+Email address to use in control and changelog entries.
+.TP
+.B DEBFULLNAME
+You full name, eg "John Doe" which will appear in the control and changelog
+entries.
+.TP
+.B EMAIL
+Email address to use in control and changelog entries, only used if \fBDEBEMAIL\fR is no set.
 .SH FILES
 .TP
 .I /usr/share/debhelper/dh_make
 Directory that contains all the template files, separated in six
 directories: 
-.B debian/
+.TP
+.I debian/
 with files for all package classes,
-.B debians/
+.TP
+.I debians/
 with files specific to the Single binary class,
-.B debianm/
+.TP
+.I debianm/
 with files specific to the Multiple binary class,
-.B debianl/
+.TP
+.I debianl/
 with files specific to the Library class, and finally,
-.B native/
+.TP
+.I native/
 with files specific to the native Debian packages.
-.B licenses/
+.TP
+.I licenses/
 template files for the more common licenses used in Debian packages
+.SH EXAMPLES
+.TP
+To get dh\_make to use the defaults and ask you various questions about the package:
+.B dh_make
+.TP
+Create your single class package using the with the GPL license:
+.B dh_make
+\-s \-c gpl
+.TP
+A more involved example where you set your name in the environment, contact \
+email and license in the options and specify the upstream file:
+$ DEBFULLNAME="John Doe" \\
+.br
+.B dh_make
+\-\-email contact@example.com \\
+.br
+\-\-copyright=bsd \\
+.br
+\-\-file ../foo.tar.gz 
+
 .SH SEE ALSO
 .BR "dpkg(1), dpkg\-buildpackage(1), debhelper(1), make\-kpkg(1), debhelper(7)"
 .P
