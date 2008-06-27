@@ -1,4 +1,4 @@
-dh-make (0.46) UNRELEASED; urgency=low
+dh-make (0.46) unstable; urgency=low
 
   * dh_make.1 uses correct orig file Closes: #487808
   * cron.d.ex now checks -x Closes: #436241
