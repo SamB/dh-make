@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 #
 # Example init.d script with LSB support.
 #
@@ -25,9 +25,9 @@
 ### BEGIN INIT INFO
 # Provides:          #PACKAGE#
 # Required-Start:    $network $local_fs
-# Required-Stop:     
+# Required-Stop:
 # Should-Start:      $named
-# Should-Stop:       
+# Should-Stop:
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: <Enter a short description of the sortware>
@@ -43,7 +43,7 @@ NAME=#PACKAGE              # Introduce the short server's name here
 DESC=#PACKAGE              # Introduce a short description here
 LOGDIR=/var/log/#PACKAGE#  # Log directory to use
 
-PIDFILE=/var/run/$NAME.pid 
+PIDFILE=/var/run/$NAME.pid
 
 test -x $DAEMON || exit 0
 
@@ -51,14 +51,14 @@ test -x $DAEMON || exit 0
 
 # Default options, these can be overriden by the information
 # at /etc/default/$NAME
-DAEMON_OPTS=""          # Additional options given to the server 
+DAEMON_OPTS=""          # Additional options given to the server
 
 DIETIME=10              # Time to wait for the server to die, in seconds
                         # If this value is set too low you might not
                         # let some servers to die gracefully and
                         # 'restart' will not work
 
-#STARTIME=2             # Time to wait for the server to start, in seconds
+#STARTTIME=2             # Time to wait for the server to start, in seconds
                         # If this value is set each time the server is
                         # started (on start or restart) the script will
                         # stall to try to determine if it is running
@@ -76,7 +76,7 @@ if [ -f /etc/default/$NAME ] ; then
 	. /etc/default/$NAME
 fi
 
-# Use this if you want the user to explicitly set 'RUN' in 
+# Use this if you want the user to explicitly set 'RUN' in
 # /etc/default/
 #if [ "x$RUN" != "xyes" ] ; then
 #    log_failure_msg "$NAME disabled, please adjust the configuration to your needs "
@@ -104,7 +104,7 @@ running_pid() {
 # Check if a given process pid's cmdline matches a given name
     pid=$1
     name=$2
-    [ -z "$pid" ] && return 1 
+    [ -z "$pid" ] && return 1
     [ ! -d /proc/$pid ] &&  return 1
     cmd=`cat /proc/$pid/cmdline | tr "\000" "\n"|head -n 1 |cut -d : -f 1`
     # Is this the expected server
@@ -126,8 +126,7 @@ running() {
 start_server() {
 # Start the process using the wrapper
         if [ -z "$DAEMONUSER" ] ; then
-            start-stop-daemon --start --quiet --pidfile $PIDFILE \
-                        --exec $DAEMON -- $DAEMON_OPTS
+            start_daemon -p $PIDFILE $DAEMON -- $DAEMON_OPTS
             errcode=$?
         else
 # if we are using a daemonuser then change the user id
@@ -142,8 +141,7 @@ start_server() {
 stop_server() {
 # Stop the process using the wrapper
         if [ -z "$DAEMONUSER" ] ; then
-            start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-                        --exec $DAEMON
+            killproc -p $PIDFILE $DAEMON
             errcode=$?
         else
 # if we are using a daemonuser then look for process that match
@@ -158,7 +156,7 @@ stop_server() {
 
 reload_server() {
     [ ! -f "$PIDFILE" ] && return 1
-    pid=`cat $PIDFILE` # This is the daemon's pid
+    pid=pidofproc $PIDFILE # This is the daemon's pid
     # Send a SIGHUP
     kill -1 $pid
     return $?
@@ -214,8 +212,9 @@ case "$1" in
         log_daemon_msg "Stopping $DESC" "$NAME"
         if running ; then
             # Only stop the server if we see it running
-            stop_server
-            log_end_msg $?
+			errcode=0
+            stop_server || errcode=$?
+            log_end_msg $errcode
         else
             # If it's not running don't do anything
             log_progress_msg "apparently not running"
@@ -229,19 +228,21 @@ case "$1" in
         if running; then
             # If it's still running try to kill it more forcefully
             log_daemon_msg "Stopping (force) $DESC" "$NAME"
-            force_stop
-            log_end_msg $?
+			errcode=0
+            force_stop || errcode=$?
+            log_end_msg $errcode
         fi
 	;;
   restart|force-reload)
         log_daemon_msg "Restarting $DESC" "$NAME"
-        stop_server
+		errcode=0
+        stop_server || errcode=$?
         # Wait some sensible amount, some server need this
         [ -n "$DIETIME" ] && sleep $DIETIME
-        start_server
+        start_server || errcode=$?
         [ -n "$STARTTIME" ] && sleep $STARTTIME
-        running
-        log_end_msg $?
+        running || errcode=$?
+        log_end_msg $errcode
 	;;
   status)
 

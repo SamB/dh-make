@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
-# Sample debian/rules that uses debhelper. 
+# Sample debian/rules that uses debhelper.
 # This file was originally written by Joey Hess and Craig Small.
 # As a special exception, when this file is copied by dh-make into a
 # dh-make output file, you may use that output file without restriction.
@@ -12,14 +12,14 @@
 # either dep/indep for things like common files or userspace components
 # needed for the kernel modules.
 
-# Uncomment this to turn on verbose mode. 
+# Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
 
 #DPKG_ARCH#
 
 # some default definitions, important!
-# 
+#
 # Name of the source package
 psource:=#PACKAGE#-source
 
@@ -51,9 +51,9 @@ MA_DIR ?= /usr/share/modass
 # The kdist_config target is called by make-kpkg modules_config and
 # by kdist* rules by dependency. It should configure the module so it is
 # ready for compilation (mostly useful for calling configure).
-# prep-deb-files from module-assistant creates the neccessary debian/ files 
+# prep-deb-files from module-assistant creates the neccessary debian/ files
 kdist_config: prep-deb-files
-  
+ 
 # the kdist_clean target is called by make-kpkg modules_clean and from
 # kdist* rules. It is responsible for cleaning up any changes that have
 # been made by the other kdist_commands (except for the .deb files created)

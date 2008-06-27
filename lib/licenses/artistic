@@ -3,12 +3,12 @@ This package was debianized by #USERNAME# <#EMAIL#> on
 
 It was downloaded from <url://example.com>
 
-Upstream Author(s): 
+Upstream Author(s):
 
     <put author's name and email here>
     <likewise for another author>
 
-Copyright: 
+Copyright:
 
     <Copyright (C) YYYY Name OfAuthor>
     <likewise for another author>
@@ -18,11 +18,11 @@ License:
     This program is free software; you can redistribute it and/or modify it
     under the terms of the "Artistic License" which comes with Debian.
 
-    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED 
-    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES 
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES
     OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-On Debian systems, the complete text of the Artistic License 
+On Debian systems, the complete text of the Artistic License
 can be found in `/usr/share/common-licenses/Artistic'.
 
 The Debian packaging is (C) #YEAR#, #USERNAME# <#EMAIL#> and

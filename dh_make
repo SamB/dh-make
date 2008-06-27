@@ -483,7 +483,7 @@ foreach $orig (@ORIG)
 }
 
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $CDBS_CLASS );
-our $BUILD_DEPS = 'debhelper (>= 6)';
+our $BUILD_DEPS = 'debhelper (>= 7)';
 if ($package_type eq "b") {
   $BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
 }

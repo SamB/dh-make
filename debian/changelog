@@ -1,8 +1,14 @@
 dh-make (0.46) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * dh_make.1 uses correct orig file Closes: #487808
+  * cron.d.ex now checks -x Closes: #436241
+  * watch example for googlepages Closes: #447680
+  * Removed trailing whitespace Closes: #451479
+  * Updated debhelper compat to 7 Closes: #464949
+  * Fixed some problems in init.d.lsb.ex Closes: #485625
+  * Making init.d.lsb.ex more lsb correct Closes:  #450898
 
- -- Craig Small <csmall@debian.org>  Fri, 09 May 2008 22:43:09 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 27 Jun 2008 20:47:50 +1000
 
 dh-make (0.45) unstable; urgency=low
 

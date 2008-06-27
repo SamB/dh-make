@@ -6,7 +6,7 @@
 # Compulsory line, this is a version 3 file
 version=3
 
-# Uncomment to examine a Webpage 
+# Uncomment to examine a Webpage
 # <Webpage URL> <string match>
 #http://www.example.com/downloads.php #PACKAGE#-(.*)\.tar\.gz
 
@@ -19,4 +19,5 @@ version=3
 # Uncomment to find new files on sourceforge, for devscripts >= 2.9
 # http://sf.net/#PACKAGE#/#PACKAGE#-(.*)\.tar\.gz
 
-
+# Uncomment to find new files on GooglePages
+# http://example.googlepages.com/foo.html #PACKAGE#-(.*)\.tar\.gz

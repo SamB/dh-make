@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-  
+
 include /usr/share/cdbs/1/rules/debhelper.mk
 #CDBS_CLASS#
 #PATCH_CLASS#

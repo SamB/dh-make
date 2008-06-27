@@ -13,7 +13,7 @@ Description: <insert up to 60 chars description> <insert long description, inden
 
 Package: #PACKAGE#-source
 Architecture: all
-Depends: module-assistant, debhelper (>= 5), make, bzip2
+Depends: module-assistant, debhelper (>= 7), make, bzip2
 Description: Source for the #PACKAGE# driver.
  This package provides the source code for the #PACKAGE# kernel modules.
  The #PACKAGE# package is also required in order to make use of these

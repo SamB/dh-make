@@ -23,14 +23,14 @@ export DH_OPTIONS
 
 #CONFIGURE#
 
-#Architecture 
+#Architecture
 build: build-arch build-indep
 
 build-arch: build-arch-stamp
 build-arch-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 
 	# Add here commands to compile the arch part of the package.
-	#$(MAKE) 
+	#$(MAKE)
 	touch $@
 
 build-indep: build-indep-stamp
@@ -69,7 +69,7 @@ install-arch:
 	dh_clean -k -s#PRESERVE#
 	dh_installdirs -s
 
-	# Add here commands to install the arch part of the package into 
+	# Add here commands to install the arch part of the package into
 	# debian/tmp.
 	#INSTALL#
 
@@ -96,7 +96,7 @@ binary-common:
 	dh_installman
 	dh_link
 	dh_strip
-	dh_compress 
+	dh_compress
 	dh_fixperms
 #	dh_perl
 	dh_makeshlibs

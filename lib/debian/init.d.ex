@@ -4,7 +4,7 @@
 #		This file should be used to construct scripts for /etc/init.d.
 #
 #		Written by Miquel van Smoorenburg <miquels@cistron.nl>.
-#		Modified for Debian 
+#		Modified for Debian
 #		by Ian Murdock <imurdock@gnu.ai.mit.edu>.
 #               Further changes by Javier Fernandez-Sanguino <jfs@debian.org>
 #
@@ -37,7 +37,7 @@ running_pid()
     # Check if a given process pid's cmdline matches a given name
     pid=$1
     name=$2
-    [ -z "$pid" ] && return 1 
+    [ -z "$pid" ] && return 1
     [ ! -d /proc/$pid ] &&  return 1
     cmd=`cat /proc/$pid/cmdline | tr "\000" "\n"|head -n 1 |cut -d : -f 1`
     # Is this the expected child?

@@ -20,7 +20,7 @@ XP     = xsltproc -''-nonet -''-param man.charmap.use.subset "0"
 
 manpage.1: manpage.xml
         $(XP) $(DB2MAN) $<
-    
+
 The xsltproc binary is found in the xsltproc package. The XSL files are in
 docbook-xsl. A description of the parameters you can use can be found in the
 docbook-xsl-doc-* packages. Please remember that if you create the nroff
