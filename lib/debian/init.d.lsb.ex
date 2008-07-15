@@ -63,17 +63,17 @@ DIETIME=10              # Time to wait for the server to die, in seconds
                         # started (on start or restart) the script will
                         # stall to try to determine if it is running
                         # If it is not set and the server takes time
-                        # to setup a pid file the log message might 
+                        # to setup a pid file the log message might
                         # be a false positive (says it did not start
                         # when it actually did)
-                        
+
 LOGFILE=$LOGDIR/$NAME.log  # Server logfile
 #DAEMONUSER=#PACKAGE#   # Users to run the daemons as. If this value
                         # is set start-stop-daemon will chuid the server
 
 # Include defaults if available
 if [ -f /etc/default/$NAME ] ; then
-	. /etc/default/$NAME
+    . /etc/default/$NAME
 fi
 
 # Use this if you want the user to explicitly set 'RUN' in
@@ -135,7 +135,7 @@ start_server() {
                         --exec $DAEMON -- $DAEMON_OPTS
             errcode=$?
         fi
-	return $errcode
+        return $errcode
 }
 
 stop_server() {
@@ -151,7 +151,7 @@ stop_server() {
             errcode=$?
         fi
 
-	return $errcode
+        return $errcode
 }
 
 reload_server() {
@@ -164,27 +164,27 @@ reload_server() {
 
 force_stop() {
 # Force the process to die killing it manually
-	[ ! -e "$PIDFILE" ] && return
-	if running ; then
-		kill -15 $pid
-	# Is it really dead?
-		sleep "$DIETIME"s
-		if running ; then
-			kill -9 $pid
-			sleep "$DIETIME"s
-			if running ; then
-				echo "Cannot kill $NAME (pid=$pid)!"
-				exit 1
-			fi
-		fi
-	fi
-	rm -f $PIDFILE
+    [ ! -e "$PIDFILE" ] && return
+    if running ; then
+        kill -15 $pid
+        # Is it really dead?
+        sleep "$DIETIME"s
+        if running ; then
+            kill -9 $pid
+            sleep "$DIETIME"s
+            if running ; then
+                echo "Cannot kill $NAME (pid=$pid)!"
+                exit 1
+            fi
+        fi
+    fi
+    rm -f $PIDFILE
 }
 
 
 case "$1" in
   start)
-	log_daemon_msg "Starting $DESC " "$NAME"
+        log_daemon_msg "Starting $DESC " "$NAME"
         # Check if it's running first
         if running ;  then
             log_progress_msg "apparently already running"
@@ -207,12 +207,12 @@ case "$1" in
             # Either we could not start it
             log_end_msg 1
         fi
-	;;
+        ;;
   stop)
         log_daemon_msg "Stopping $DESC" "$NAME"
         if running ; then
             # Only stop the server if we see it running
-			errcode=0
+            errcode=0
             stop_server || errcode=$?
             log_end_msg $errcode
         else
@@ -228,14 +228,14 @@ case "$1" in
         if running; then
             # If it's still running try to kill it more forcefully
             log_daemon_msg "Stopping (force) $DESC" "$NAME"
-			errcode=0
+            errcode=0
             force_stop || errcode=$?
             log_end_msg $errcode
         fi
-	;;
+        ;;
   restart|force-reload)
         log_daemon_msg "Restarting $DESC" "$NAME"
-		errcode=0
+        errcode=0
         stop_server || errcode=$?
         # Wait some sensible amount, some server need this
         [ -n "$DIETIME" ] && sleep $DIETIME
@@ -243,7 +243,7 @@ case "$1" in
         [ -n "$STARTTIME" ] && sleep $STARTTIME
         running || errcode=$?
         log_end_msg $errcode
-	;;
+        ;;
   status)
 
         log_daemon_msg "Checking status of $DESC" "$NAME"
@@ -287,10 +287,10 @@ case "$1" in
                                                                                     #;;
 
   *)
-	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|force-stop|restart|force-reload|status}" >&2
-	exit 1
-	;;
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|force-stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
 esac
 
 exit 0

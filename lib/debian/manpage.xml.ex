@@ -47,7 +47,7 @@ man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
   <!-- Fill in your name for FIRSTNAME and SURNAME. -->
   <!ENTITY dhfirstname "FIRSTNAME">
   <!ENTITY dhsurname   "SURNAME">
-  <!-- dhusername could also be set to "&firstname; &surname;". -->  
+  <!-- dhusername could also be set to "&firstname; &surname;". -->
   <!ENTITY dhusername  "#USERNAME#">
   <!ENTITY dhemail     "#EMAIL#">
   <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
@@ -81,14 +81,14 @@ man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
     </copyright>
     <legalnotice>
       <para>This manual page was written for the Debian system
-        (but may be used by others).</para>
+        (and may be used by others).</para>
       <para>Permission is granted to copy, distribute and/or modify this
         document under the terms of the GNU General Public License,
         Version 2 or (at your option) any later version published by
         the Free Software Foundation.</para>
       <para>On Debian systems, the complete text of the GNU General Public
         License can be found in
-	<filename>/usr/share/common-licenses/GPL</filename>.</para>
+        <filename>/usr/share/common-licenses/GPL</filename>.</para>
     </legalnotice>
   </refentryinfo>
   <refmeta>

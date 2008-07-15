@@ -18,8 +18,8 @@
 ;; If package-dir does not exist, the #PACKAGE# package must have
 ;; removed but not purged, and we should skip the setup.
   (when (file-directory-p package-dir)
-        (setq load-path (cons package-dir load-path))
-       (autoload '#PACKAGE#-mode "#PACKAGE#-mode"
-         "Major mode for editing #PACKAGE# files." t)
-       (add-to-list 'auto-mode-alist '("\\.#PACKAGE#$" . #PACKAGE#-mode))))
+    (setq load-path (cons package-dir load-path))
+    (autoload '#PACKAGE#-mode "#PACKAGE#-mode"
+      "Major mode for editing #PACKAGE# files." t)
+    (add-to-list 'auto-mode-alist '("\\.#PACKAGE#$" . #PACKAGE#-mode))))
 

@@ -27,7 +27,7 @@ DODTIME=1                   # Time to wait for the server to die, in seconds
 
 # Include #PACKAGE# defaults if available
 if [ -f /etc/default/#PACKAGE# ] ; then
-	. /etc/default/#PACKAGE#
+    . /etc/default/#PACKAGE#
 fi
 
 set -e
@@ -80,63 +80,63 @@ force_stop() {
 
 case "$1" in
   start)
-	echo -n "Starting $DESC: "
-	start-stop-daemon --start --quiet --pidfile $PIDFILE \
-		--exec $DAEMON -- $DAEMON_OPTS
+        echo -n "Starting $DESC: "
+        start-stop-daemon --start --quiet --pidfile $PIDFILE \
+            --exec $DAEMON -- $DAEMON_OPTS
         if running ; then
             echo "$NAME."
         else
             echo " ERROR."
         fi
-	;;
+        ;;
   stop)
-	echo -n "Stopping $DESC: "
-	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-		--exec $DAEMON
-	echo "$NAME."
-	;;
+        echo -n "Stopping $DESC: "
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+            --exec $DAEMON
+        echo "$NAME."
+        ;;
   force-stop)
-	echo -n "Forcefully stopping $DESC: "
+        echo -n "Forcefully stopping $DESC: "
         force_stop
         if ! running ; then
             echo "$NAME."
         else
             echo " ERROR."
         fi
-	;;
+        ;;
   #reload)
-	#
-	#	If the daemon can reload its config files on the fly
-	#	for example by sending it SIGHUP, do it here.
-	#
-	#	If the daemon responds to changes in its config file
-	#	directly anyway, make this a do-nothing entry.
-	#
-	# echo "Reloading $DESC configuration files."
-	# start-stop-daemon --stop --signal 1 --quiet --pidfile \
-	#	/var/run/$NAME.pid --exec $DAEMON
+        #
+        # If the daemon can reload its config files on the fly
+        # for example by sending it SIGHUP, do it here.
+        #
+        # If the daemon responds to changes in its config file
+        # directly anyway, make this a do-nothing entry.
+        #
+        # echo "Reloading $DESC configuration files."
+        # start-stop-daemon --stop --signal 1 --quiet --pidfile \
+        #       /var/run/$NAME.pid --exec $DAEMON
   #;;
   force-reload)
-	#
-	#	If the "reload" option is implemented, move the "force-reload"
-	#	option to the "reload" entry above. If not, "force-reload" is
-	#	just the same as "restart" except that it does nothing if the
-	#   daemon isn't already running.
-	# check wether $DAEMON is running. If so, restart
-	start-stop-daemon --stop --test --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON \
-	&& $0 restart \
-	|| exit 0
-	;;
+        #
+        # If the "reload" option is implemented, move the "force-reload"
+        # option to the "reload" entry above. If not, "force-reload" is
+        # just the same as "restart" except that it does nothing if the
+        # daemon isn't already running.
+        # check wether $DAEMON is running. If so, restart
+        start-stop-daemon --stop --test --quiet --pidfile \
+            /var/run/$NAME.pid --exec $DAEMON \
+            && $0 restart \
+            || exit 0
+        ;;
   restart)
     echo -n "Restarting $DESC: "
-	start-stop-daemon --stop --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON
-	[ -n "$DODTIME" ] && sleep $DODTIME
-	start-stop-daemon --start --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON -- $DAEMON_OPTS
-	echo "$NAME."
-	;;
+        start-stop-daemon --stop --quiet --pidfile \
+            /var/run/$NAME.pid --exec $DAEMON
+        [ -n "$DODTIME" ] && sleep $DODTIME
+        start-stop-daemon --start --quiet --pidfile \
+            /var/run/$NAME.pid --exec $DAEMON -- $DAEMON_OPTS
+        echo "$NAME."
+        ;;
   status)
     echo -n "$LABEL is "
     if running ;  then
@@ -147,11 +147,11 @@ case "$1" in
     fi
     ;;
   *)
-	N=/etc/init.d/$NAME
-	# echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
-	echo "Usage: $N {start|stop|restart|force-reload|status|force-stop}" >&2
-	exit 1
-	;;
+    N=/etc/init.d/$NAME
+    # echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+    echo "Usage: $N {start|stop|restart|force-reload|status|force-stop}" >&2
+    exit 1
+    ;;
 esac
 
 exit 0

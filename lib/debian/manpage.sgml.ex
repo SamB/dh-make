@@ -123,15 +123,15 @@ manpage.1: manpage.sgml
     <title>AUTHOR</title>
 
     <para>This manual page was written by &dhusername; &dhemail; for
-      the &debian; system (but may be used by others).  Permission is
+      the &debian; system (and may be used by others).  Permission is
       granted to copy, distribute and/or modify this document under
       the terms of the &gnu; General Public License, Version 2 any
-	  later version published by the Free Software Foundation.
+      later version published by the Free Software Foundation.
     </para>
-	<para>
-	  On Debian systems, the complete text of the GNU General Public
-	  License can be found in /usr/share/common-licenses/GPL.
-	</para>
+    <para>
+      On Debian systems, the complete text of the GNU General Public
+      License can be found in /usr/share/common-licenses/GPL.
+    </para>
 
   </refsect1>
 </refentry>

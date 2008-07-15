@@ -56,4 +56,4 @@ available via the Info system.
 #PACKAGE# was written by <upstream author>.
 .PP
 This manual page was written by #USERNAME# <#EMAIL#>,
-for the Debian project (but may be used by others).
+for the Debian project (and may be used by others).
