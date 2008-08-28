@@ -4,8 +4,9 @@ dh-make (0.47) UNRELEASED; urgency=low
   * Removed extra space out of dh_installdebconf line closes: #489193
   * Man page changed but->and Closes: #490821
   * tabs fixed in rules file Closes: #489193
+  * init.d.lsb.ex fixed start_daemon line Closes: #496639
 
- -- Craig Small <csmall@debian.org>  Tue, 15 Jul 2008 21:44:27 +1000
+ -- Craig Small <csmall@debian.org>  Thu, 28 Aug 2008 11:00:59 +1000
 
 dh-make (0.46) unstable; urgency=low
 
