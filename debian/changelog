@@ -15,8 +15,11 @@ dh-make (0.47) UNRELEASED; urgency=low
   * binary only depends on install Closes: #358722
   * Replace dh_clean -k with dh_prep Closes: #502698
   * dh_make.1 documents dpatch and other new options Closes: #497169
+  * Added Vcs fields to control file Closes: #502933
+  * Replace backtick with qx Closes: #502524
+  * Changed layout of GPL license template Closes: #502522
 
- -- Craig Small <csmall@debian.org>  Tue, 04 Nov 2008 10:17:40 +1100
+ -- Craig Small <csmall@debian.org>  Tue, 04 Nov 2008 10:38:46 +1100
 
 dh-make (0.46) unstable; urgency=low
 

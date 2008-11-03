@@ -4,6 +4,8 @@ Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
 Build-Depends: debhelper  (>= 7)
 Standards-Version: 3.7.3
+Vcs-Browser: http://svn.debian.org/wsvn/collab-maint/deb-maint/
+Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/dh-make
 
 Package: dh-make
 Architecture: all
@@ -14,6 +16,6 @@ Description: tool that converts source archives into Debian package source
  This package allows you to take a standard (or upstream) source package
  and convert it into a format that will allow you to build Debian packages.
  .
- After answering a few questions, dh_make will then provide a set of 
- templates that, after some small editing, will allow you to create a 
+ After answering a few questions, dh_make will then provide a set of
+ templates that, after some small editing, will allow you to create a
  Debian package.
