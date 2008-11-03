@@ -39,7 +39,7 @@ binary-arch: build
 binary-indep: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	# Add here commands to install the files into debian/dh-make

@@ -17,12 +17,13 @@ our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.7.3";
 our $DH_MAKE_VERSION="0.47";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
-                   'k' => 'Kernel Module', 'b' => 'cdbs');
+                   'k' => 'Kernel Module', 'b' => 'cdbs', 'n' => 'Kernel Patch');
 
 our $DASHLINE="";
 
 our $license="";
 our $dpatch="";
+our $quilt="";
 our $username="";
 our $package_name="";
 our $cap_package_name="";
@@ -74,6 +75,7 @@ sub process_file(@)
 	  $line =~ s/#CONFIGURE_STAMP#/$main::CONFIGURE_STAMP/g;
       $line =~ s/#DPKG_ARCH#/$main::DPKG_ARCH/g;
       $line =~ s/#INSTALL#/$main::INSTALL/g;
+      $line =~ s/#MAKE#/$main::MAKE/g;
       $line =~ s/#CLEAN#/$main::CLEAN/g;
       $line =~ s/#USERNAME#/$main::username/g;
       $line =~ s/#POLICY#/$main::POLICY_VERSION/g;
@@ -84,7 +86,6 @@ sub process_file(@)
       $line =~ s/#PATCH_CLEAN#/$main::PATCH_CLEAN/g;
       $line =~ s/#PATCH_STAMP#/$main::PATCH_STAMP/g;
       $line =~ s/#BUILD_DEPS#/$main::BUILD_DEPS/g;
-
       print OUT $line;
     }
     close IN;
@@ -106,6 +107,7 @@ sub show_help
   -c, --copyright <type>    use <type> of license in copyright file
                             (gpl|lgpl|artistic|bsd)
       --dpatch              using dpatch to maintain patches
+      --quilt               using quilt to maintain patches
   -e, --email <address>     use <address> as the maintainer e-mail address
   -n, --native              the program is Debian native, don\'t generate .orig
   -f, --file <file>         specify file to use as the original source archive
@@ -114,6 +116,7 @@ sub show_help
   -m, --multi               set package class to multiple binary
   -l, --library             set package class to library
   -k, --kmod                set package class to kernel module
+      --kpatch              set package class to kernel patch
   -b, --cdbs                set package class to cdbs
   -a, --addmissing          reprocess package and add missing files
   -t, --templates <dir>      apply customizing templates in <dir>
@@ -131,9 +134,10 @@ EOF
 
 sub parse_args
 {
-  my ($dohelp,$doversion, $single,$multi,$library, $kmod,$cdbs );
+  my ($dohelp,$doversion, $single,$multi,$library,$kmod,$kpatch,$cdbs );
   if (GetOptions('copyright|c=s' => \$main::license,
               'dpatch' => \$dpatch,
+	      'quilt' => \$quilt,
               'email|e=s' => \$main::email,
               'file|f=s' => \$main::source_file,
               'createorig|r' => \$main::copy_dir_for_orig,
@@ -144,6 +148,7 @@ sub parse_args
 	      'multi|m' => \$multi,
 	      'library|l' => \$library,
 	      'kmod|k' => \$kmod,
+	      'kpatch' => \$kpatch,
 	      'cdbs|b' => \$cdbs,
 	      'addmissing|a' => \$main::add_missing,
 	      'templates|t=s' => \$main::custom,
@@ -187,6 +192,10 @@ sub parse_args
   if ($kmod)
   {
     $main::package_type = 'k';
+  }
+  if ($kpatch)
+  {
+    $main::package_type = 'n';
   }
   if ($cdbs)
   {
@@ -346,6 +355,7 @@ print "License         : $license";
 print 'blank' if $license eq '';
 print "\n";
 print "Using dpatch    : ",($dpatch?"yes":"no"),"\n";
+print "Using quilt     : ",($quilt?"yes":"no"),"\n";
 print "Type of Package : ";
 if (exists $PACKAGE_TYPES{$package_type})
 {
@@ -396,7 +406,7 @@ if ( ! $no_defaults )
 {
   while ($package_type eq "")
   {
-    print "\nType of package: single binary, multiple binary, library, kernel module or cdbs?\n [s/m/l/k/b] ";
+    print "\nType of package: single binary, multiple binary, library, kernel module, kernel patch or cdbs?\n [s/m/l/k/n/b] ";
     my $type = <STDIN>;
     chomp($type);
     print "\n";
@@ -405,6 +415,7 @@ if ( ! $no_defaults )
     $main::package_type = 'm' if $type eq 'm';
     $main::package_type = 'l' if $type eq 'l';
     $main::package_type = 'k' if $type eq 'k';
+    $main::package_type = 'n' if $type eq 'n';
     $main::package_type = 'b' if $type eq 'b';
   }
 }
@@ -482,7 +493,7 @@ foreach $orig (@ORIG)
   $PRESERVE="$PRESERVE --exclude $orig";
 }
 
-our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $CDBS_CLASS );
+our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $MAKE, $CDBS_CLASS );
 our $BUILD_DEPS = 'debhelper (>= 7)';
 if ($package_type eq "b") {
   $BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
@@ -498,6 +509,16 @@ if ($dpatch) {
 		$PATCH_STAMP = "patch-stamp";
 		$PATCH_CLEAN = "unpatch";
 		$BUILD_DEPS = 'dpatch, '.$BUILD_DEPS;
+	}
+} elsif ($quilt) {
+	if ($package_type eq "b") {
+		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/patchsys-quilt.mk";
+	}
+	else {
+		$PATCH_CLASS = "include /usr/share/quilt/quilt.make";
+		$PATCH_STAMP = "\$(QUILT_STAMPFN)";
+		$PATCH_CLEAN = "unpatch";
+		$BUILD_DEPS = 'quilt, '.$BUILD_DEPS;
 	}
 }
 
@@ -528,6 +549,7 @@ if (-x "./configure" )
 			 'CROSS= --build $(DEB_BUILD_GNU_TYPE)'."\n".
 			 'endif'."\n";
 
+  $MAKE="\$(MAKE)";
   # If it is automaked, use DESTDIR insteadof prefix
   if ( -f 'Makefile.am' ) {
     # If it is a library then install into tmp
@@ -546,6 +568,27 @@ if (-x "./configure" )
   $CLEAN="[ ! -f Makefile ] || \$(MAKE) distclean\n".
          "\trm -f config.sub config.guess";
   $BUILD_DEPS .= ', autotools-dev';
+} elsif (-f 'CMakeLists.txt') 
+{
+  $CDBS_CLASS="include /usr/share/cdbs/1/class/cmake.mk";
+  $CONFIG_STATUS="builddir/Makefile";
+  $CONFIGURE_STAMP='';
+  $PHONY_CONFIGURE='';
+  $CONFIGURE="builddir/Makefile:\n".
+             "\tdh_testdir\n".
+			 "\t# Add here commands to configure the package.\n".
+			 "\t".'mkdir -p builddir'."\n".
+			 "\t".'cd builddir && cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_LD_FLAGS="-Wl,-z,defs" -DCMAKE_CXX_FLAGS="$(CXXFLAGS)" -DCMAKE_SKIP_RPATH=ON -DCMAKE_VERBOSE_MAKEFILE=ON'."\n";
+  $MAKE="\$(MAKE) -C builddir";
+    # If it is a library then install into tmp
+    if ( $package_type eq "l") {
+      $INSTALL="\$(MAKE) -C builddir DESTDIR=\$(CURDIR)/debian/tmp install";
+    } else {
+      $INSTALL="\$(MAKE) -C builddir DESTDIR=\$(CURDIR)/debian/$package_name install";
+    }
+  $CLEAN="rm -rf builddir\n";
+  $BUILD_DEPS .= ', cmake';
+
 } else {
   if (! -f 'Makefile' && ! -f 'makefile' && ! -f 'GNUmakefile')
   {
@@ -560,6 +603,7 @@ if (-x "./configure" )
 			 "\t# Add here commands to configure the package.\n\n".
 			 "\ttouch configure-stamp\n";
   $PHONY_CONFIGURE='configure';
+  $MAKE="\$(MAKE)";
   $DPKG_ARCH='';
   if ($package_type eq "l") {
     $INSTALL="\$(MAKE) DESTDIR=\$(CURDIR)/debian/tmp install";
@@ -570,6 +614,10 @@ if (-x "./configure" )
 }
 if ($package_type eq "k") {
   $BUILD_DEPS .= ', bzip2';
+}
+
+if ($package_type eq "n") {
+  $BUILD_DEPS .= ', dh-kpatches';
 }
 
 # Customize files
@@ -646,6 +694,10 @@ if ( $custom ne "" )
   }
 }
 
+# kernel-patch kpatch file name
+if ($package_type eq "n") {
+  rename "kpatches", "$package_name.kpatches";
+}
 
 if ( -f "docs" )
 {

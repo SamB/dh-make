@@ -3,12 +3,12 @@
 dh_make \- Debianize a regular source archive
 .SH SYNOPSIS
 .B dh_make
-[\-nlsmiadh] [\-c license] [\-e address] [\-f file] [\-t directory]
+[\-bnlsmiadh] [\-c license] [\-e address] [\-f file] [\-t directory]
 [\-o directory] [\-p name] [\-\-copyright license]
 [\-\-email address] [\-\-native] [\-\-file file]
-[\-\-library] [\-\-single] [\-\-multi] [\-\-kmod] [\-\-addmissing]
+[\-\-library] [\-\-single] [\-\-multi] [\-\-kmod] [\-\-kpatch] [\-\-addmissing]
 [\-\-templates directory] [\-\-defaultless] [\-\-overlay directory]
-[\-\-packagename name]
+[\-\-packagename name] [\-\-dpatch] [\-\-quilt]
 [\-\-help] [\-\-version]
 .SH DESCRIPTION
 .B dh_make
@@ -46,6 +46,9 @@ additional utilities, daemons, etc. that may come with the source.
 .B cdbs (b)
 The package will be build using the Common Debian Build System.
 CDBS provides a sane set of default rules upon which packages can build.
+.TP
+.B Kernel patch
+The package will generate a package that can be used for kernel patches.
 .SH ACTIONS PERFORMED
 Unless \-\-native was given, 
 .B dh_make
@@ -129,6 +132,9 @@ Automatically set the package class to Kernel module, skipping the question.
 .I \-b, \-\-cdbs
 Automatically set package class to cdbs, skipping the question.
 .TP
+.I \-\-kpatch
+Automatically set package class to kpatch, skipping the question.
+.TP
 .I \-a, \-\-addmissing
 Adds missing example and control files on an existing debian source directory.
 .TP
@@ -148,6 +154,12 @@ Skips applying the default templates to the target debian directory.
 .I \-h, \-\-help
 Display the name, version, available options and authors, and exit
 successfully.
+.TP
+.I \-\-dpatch
+The new package will use dpatch to manage patches.
+.TP
+.I \-\-quilt
+The new package will use quilt to manage patches.
 .TP
 .I \-v, \-\-version
 Show the program name and version, and exit successfully.

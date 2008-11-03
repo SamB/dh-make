@@ -15,22 +15,17 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-
 case "$1" in
     configure)
         if [ -x /usr/sbin/update-devfsd ] ; then
             /usr/sbin/update-devfsd 2>/dev/null || true
         fi
-        modprobe foo 2>/dev/null || modprobe bar 2>/dev/null || true
+		# Install the modules below
+        modprobe #PACKAGE#-foo 2>/dev/null || modprobe #PACKAGE#-bar 2>/dev/null || true
         # start or restart after install or upgrade
+		# Tests to see if the binary exists first
         if test -x /usr/sbin/#PACKAGE# ; then
-            if ! -e /var/run/#PACKAGE#.pid ; then
-                /etc/init.d/#PACKAGE# start || true
-            else
-                if test -n "$2" ; then
-                   /etc/init.d/#PACKAGE# restart || true
-                fi
-            fi
+		  invoke-rc.d #PACKAGE# start || true
         fi
     ;;
 
@@ -49,5 +44,3 @@ esac
 #DEBHELPER#
 
 exit 0
-
-

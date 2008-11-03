@@ -30,7 +30,7 @@ build-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 	dh_testdir
 
 	# Add here commands to compile the package.
-	$(MAKE)
+	#MAKE#
 
 	touch $@
 
@@ -47,7 +47,7 @@ clean: #PATCH_CLEAN#
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k#PRESERVE#
+	dh_prep #PRESERVE#
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp
@@ -55,11 +55,11 @@ install: build
 
 
 # Build architecture-independent files here.
-binary-indep: build install
+binary-indep: install
 # We have nothing to do by default.
 
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-arch: install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs #CHANGELOGS#

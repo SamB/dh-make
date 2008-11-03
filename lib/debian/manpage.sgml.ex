@@ -152,5 +152,3 @@ sgml-local-catalogs:nil
 sgml-local-ecat-files:nil
 End:
 -->
-
-

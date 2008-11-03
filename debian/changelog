@@ -5,8 +5,18 @@ dh-make (0.47) UNRELEASED; urgency=low
   * Man page changed but->and Closes: #490821
   * tabs fixed in rules file Closes: #489193
   * init.d.lsb.ex fixed start_daemon line Closes: #496639
+  * Removed trailing whitespace in example files Closes: #497731
+  * CMake support from Sune Vuorela Closes: #490940
+  * Added Quilt support from Sune Vuorela Closes: #390941
+  * Added support for kernel patch packages Closes: #491870
+  * License templates use copyright not (C) Closes: #497468
+  * Made package synposes lower case Closes: #465482
+  * kernel postinst uses invoke-rc.d Closes: #370494
+  * binary only depends on install Closes: #358722
+  * Replace dh_clean -k with dh_prep Closes: #502698
+  * dh_make.1 documents dpatch and other new options Closes: #497169
 
- -- Craig Small <csmall@debian.org>  Thu, 28 Aug 2008 11:00:59 +1000
+ -- Craig Small <csmall@debian.org>  Tue, 04 Nov 2008 10:17:40 +1100
 
 dh-make (0.46) unstable; urgency=low
 

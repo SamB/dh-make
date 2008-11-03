@@ -81,7 +81,7 @@ build-arch-stamp: #PATCH_STAMP#
 # during a normal build
 binary-modules:
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs lib/modules/$(KVERS)/misc
 
 	# Build the module
@@ -98,7 +98,7 @@ binary-modules:
 	dh_gencontrol -- -v$(VERSION)
 	dh_md5sums
 	dh_builddeb --destdir=$(DEB_DESTDIR)
-	dh_clean -k
+	dh_prep
 
 build-indep: #CONFIG_STATUS# #CONFIGURE_STAMP# build-indep-stamp
 build-indep-stamp: #PATCH_STAMP#
@@ -127,7 +127,7 @@ install: DH_OPTIONS=
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	# Create the directories to install the source into

@@ -30,7 +30,7 @@ build-arch: build-arch-stamp
 build-arch-stamp: #CONFIGURE_STAMP# #CONFIG_STATUS# #PATCH_STAMP#
 
 	# Add here commands to compile the arch part of the package.
-	#$(MAKE)
+	##MAKE#
 	touch $@
 
 build-indep: build-indep-stamp
@@ -54,7 +54,7 @@ install: install-indep install-arch
 install-indep:
 	dh_testdir
 	dh_testroot
-	dh_clean -k -i#PRESERVE#
+	dh_prep -i#PRESERVE#
 	dh_installdirs -i
 
 	# Add here commands to install the indep part of the package into
@@ -66,7 +66,7 @@ install-indep:
 install-arch:
 	dh_testdir
 	dh_testroot
-	dh_clean -k -s#PRESERVE#
+	dh_prep -s#PRESERVE#
 	dh_installdirs -s
 
 	# Add here commands to install the arch part of the package into

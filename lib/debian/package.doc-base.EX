@@ -18,5 +18,3 @@ Files: /usr/share/doc/#PACKAGE#/#PACKAGE#.text.gz
 Format: HTML
 Index: /usr/share/doc/#PACKAGE#/html/index.html
 Files: /usr/share/doc/#PACKAGE#/html/*.html
-
-
