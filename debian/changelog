@@ -19,8 +19,9 @@ dh-make (0.47) UNRELEASED; urgency=low
   * Replace backtick with qx Closes: #502524
   * Changed layout of GPL license template Closes: #502522
   * Make the increment of version 2 GPL optional Closes: #400249
+  * Updated to standards version 3.8.0
 
- -- Craig Small <csmall@debian.org>  Tue, 04 Nov 2008 11:59:02 +1100
+ -- Craig Small <csmall@debian.org>  Tue, 04 Nov 2008 12:03:43 +1100
 
 dh-make (0.46) unstable; urgency=low
 
