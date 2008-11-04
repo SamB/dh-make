@@ -1,6 +1,5 @@
-dh-make (0.47) UNRELEASED; urgency=low
+dh-make (0.47) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Removed extra space out of dh_installdebconf line closes: #489193
   * Man page changed but->and Closes: #490821
   * tabs fixed in rules file Closes: #489193
