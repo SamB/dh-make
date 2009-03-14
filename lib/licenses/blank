@@ -17,8 +17,12 @@ License:
 
     <Put the license of the package here indented by 4 spaces>
 
-The Debian packaging is copyright #YEAR#, #USERNAME# <#EMAIL#> and
-is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+The Debian packaging is:
+
+    Copyright (C) #YEAR# #USERNAME# <#EMAIL#>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.
 
 # Please also look if there are files or directories which have a
 # different copyright/license attached and list them here.

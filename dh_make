@@ -14,8 +14,8 @@ $Getopt::Long::autoabbrev = 0;
 
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
-our $POLICY_VERSION="3.8.0";
-our $DH_MAKE_VERSION="0.47";
+our $POLICY_VERSION="3.8.1";
+our $DH_MAKE_VERSION="0.48";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
                    'k' => 'Kernel Module', 'b' => 'cdbs', 'n' => 'Kernel Patch');
 
@@ -95,7 +95,7 @@ sub process_file(@)
 sub show_version
 {
   print "dh_make - Script to Debianize a regular source archive, version $main::DH_MAKE_VERSION\n\n";
-  print "Copyright (C) 1998-2008 Craig Small <csmall\@debian.org>\n";
+  print "Copyright (C) 1998-2009 Craig Small <csmall\@debian.org>\n";
   print "This is free software; see the source for copying conditions.  There is NO\n";
   print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
 }
@@ -105,7 +105,7 @@ sub show_help
   print <<EOF
   Usage: dh_make [options]
   -c, --copyright <type>    use <type> of license in copyright file
-                            (gpl|lgpl|artistic|bsd)
+                            (apache|artistic|bsd|gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3)
       --dpatch              using dpatch to maintain patches
       --quilt               using quilt to maintain patches
   -e, --email <address>     use <address> as the maintainer e-mail address
@@ -113,6 +113,7 @@ sub show_help
   -f, --file <file>         specify file to use as the original source archive
   -r, --createorig          make a copy for the original source archive
   -s, --single              set package class to single
+  -i, --indep				set package class to arch-independent
   -m, --multi               set package class to multiple binary
   -l, --library             set package class to library
   -k, --kmod                set package class to kernel module
@@ -134,7 +135,7 @@ EOF
 
 sub parse_args
 {
-  my ($dohelp,$doversion, $single,$multi,$library,$kmod,$kpatch,$cdbs );
+  my ($dohelp,$doversion, $single,$indep,$multi,$library,$kmod,$kpatch,$cdbs );
   if (GetOptions('copyright|c=s' => \$main::license,
               'dpatch' => \$dpatch,
 	      'quilt' => \$quilt,
@@ -145,6 +146,7 @@ sub parse_args
 	      'version|v' => \$doversion,
 	      'native|n' => \$main::debian_native,
 	      'single|s' => \$single,
+	      'indep|i' => \$indep,
 	      'multi|m' => \$multi,
 	      'library|l' => \$library,
 	      'kmod|k' => \$kmod,
@@ -181,6 +183,10 @@ sub parse_args
   {
     $main::package_type = 's';
   }
+  if ($indep)
+  {
+    $main::package_type = 'i';
+  }
   if ($multi)
   {
     $main::package_type = 'm';
@@ -206,9 +212,16 @@ sub parse_args
   #  $main::no_defaults = 1;
   #}
   $main::license = lc $main::license;
-  if ($main::license ne "" && !($main::license =~ /^(gpl|lgpl|artistic|bsd|blank)$/)) { 
-    print "Copyright type \"$main::license\" is not gpl, lgpl, artistic or bsd\n";
+  if ($main::license ne "" && !($main::license =~ /^(gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3|artistic|bsd|blank|apache)$/)) { 
+    print "Copyright type \"$main::license\" is not gpl, gpl2, gpl3, lgpl, lgpl2, lgpl3, apache, artistic, bsd or blank.\n";
     exit;
+  }
+  # Change the non-versioned into the latest version
+  if ($main::license eq "gpl") {
+	$main::license = "gpl3";
+  }
+  if ($main::license eq "lgpl") {
+	$main::license = "lgpl3";
   }
 
 }
@@ -282,12 +295,22 @@ sub get_email()
 sub get_package
 {
   my $pwd = $ENV{PWD};
-
-  if (( ($main::forced_package_name) && 
+  my $forced_package_version = "";
+  # May split the version out of the name
+  if ( ($main::forced_package_name) &&
+	($main::forced_package_name =~ /(.*)_([0-9][0-9a-zA-Z+.~-]*)$/)
+  ) {
+	$main::forced_package_name = $1;
+	$forced_package_version = $2;
+  }
+  if ((
+	  $forced_package_version
+	) || (
+	  ($main::forced_package_name) && 
         ($pwd =~ /.*\/($main::forced_package_name)-([0-9][0-9a-zA-Z+.~-]*)$/)
-	  ) || (
+	) || (
         ($pwd =~ /.*\/(.*)-([0-9][0-9a-zA-Z+.~-]*)$/)
-	  ))
+	))
   {
     if ($main::forced_package_name) {
 	  $main::package_name = $main::forced_package_name;
@@ -295,12 +318,19 @@ sub get_package
       $main::package_name = $1;
 	}
     $main::uc_package_name = uc $main::package_name;
-    $main::version = $2;
-	# Fullname stays as the original dir
-    $main::fullname = $1 . "-"  . $2;
+	if ($forced_package_version) {
+      $main::fullname = $1 . "-"  . $forced_package_version;
+	  $main::version = $forced_package_version;
+	} else {
+	  # Fullname stays as the original dir
+      $main::fullname = $1 . "-"  . $2;
+      $main::version = $2;
+	}
   } else {
 	print <<"EOF";
-The directory name must be <package>-<version> for dh_make to work!
+For dh_make to find the package name and version, the current directory 
+needs to be in the format of <package>-<version>.  Alternatively use the
+-p flag using the format <name>_<version> to override it.
 I cannot understand the directory name or you have an invalid directory name!
 
 Your current directory is $pwd, perhaps you could try going to
@@ -407,12 +437,13 @@ if ( ! $no_defaults )
 {
   while ($package_type eq "")
   {
-    print "\nType of package: single binary, multiple binary, library, kernel module, kernel patch or cdbs?\n [s/m/l/k/n/b] ";
+    print "\nType of package: single binary, indep binary, multiple binary, library, kernel module, kernel patch or cdbs?\n [s/i/m/l/k/n/b] ";
     my $type = <STDIN>;
     chomp($type);
     print "\n";
     $type = lc($type);
     $main::package_type = 's' if $type eq 's';
+    $main::package_type = 'i' if $type eq 'i';
     $main::package_type = 'm' if $type eq 'm';
     $main::package_type = 'l' if $type eq 'l';
     $main::package_type = 'k' if $type eq 'k';
@@ -421,10 +452,10 @@ if ( ! $no_defaults )
   }
 }
 
-# Debian native packages default to GPL, but it can be overwritten
+# Debian native packages default to GPL v3, but it can be overwritten
 if ($debian_native && $main::license eq '')
 {
-  $main::license = 'gpl';
+  $main::license = 'gpl3';
 }
 
 print_confirmation;
@@ -467,7 +498,7 @@ if (! $debian_native)
 	    } elsif ($copy_dir_for_orig) {
           system('cp', '-a', "../$fullname", "../$fullname.orig");
 	    } else {
-	      print "Could not find $package_name\_$version.orig.tar.gz\n";
+	      print "Could not find $fullname.orig.tar.gz\n";
 	      print "Either specify an alternate file to use with -f,\n";
 	      print "or add --createorig to create one.\n";
 	      exit 1;

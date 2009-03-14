@@ -1,4 +1,4 @@
-.TH DH_MAKE 8 "26 January 2008" "Debian Project" \" -*- nroff -*-
+.TH DH_MAKE 8 "12 March 2009" "Debian Project" \" -*- nroff -*-
 .SH NAME
 dh_make \- Debianize a regular source archive
 .SH SYNOPSIS
@@ -6,7 +6,8 @@ dh_make \- Debianize a regular source archive
 [\-bnlsmiadh] [\-c license] [\-e address] [\-f file] [\-t directory]
 [\-o directory] [\-p name] [\-\-copyright license]
 [\-\-email address] [\-\-native] [\-\-file file]
-[\-\-library] [\-\-single] [\-\-multi] [\-\-kmod] [\-\-kpatch] [\-\-addmissing]
+[\-\-library] [\-\-single] [\-\-indep] [\-\-multi] [\-\-kmod] [\-\-kpatch] 
+[\-\-addmissing]
 [\-\-templates directory] [\-\-defaultless] [\-\-overlay directory]
 [\-\-packagename name] [\-\-dpatch] [\-\-quilt]
 [\-\-help] [\-\-version]
@@ -28,6 +29,9 @@ the package name.
 .B Single binary (s)
 The package will generate a single binary .deb package. It is the standard
 case, so if you don't know what to do, choose this.
+.TP
+.B Arch-Independent (i)
+The package will generate a single package that is arch-indpendent.
 .TP
 .B Multiple binary (m)
 The package will generate multiple binary .deb packages from one source
@@ -99,10 +103,14 @@ templates described in the FILES section of this manpage for samples.
 .SH OPTIONS
 .TP
 .I \-c, \-\-copyright <license>
-Use <license> type in copyright file.  <license> can be gpl, lgpl, artistic
+Use <license> type in copyright file.  <license> can be gpl, gpl2, gpl3,
+lgpl, lgpl2 lgpl3, artistic, apache
 or bsd.  If this field is not specified the copyright file has a space to
 fill in which sort of license is used. The field is case-insensitive so
-\-c GPL works as well as \-c gpl.
+\-c GPL works as well as \-c gpl. gpl and lgpl will give you version 3
+of the corresponding license, apache implies Apache v2.0. If you need a 
+different version, change the
+license file afterwards or use the gpl2 and lgpl2 options. 
 .TP
 .I \-e, \-\-email <address>
 Use <address> as the e\-mail address in the Maintainer: field of
@@ -123,6 +131,9 @@ Automatically set the package class to Library, skipping the question.
 .TP
 .I \-s, \-\-single
 Automatically set the package class to Single binary, skipping the question.
+.TP
+.I \-i, \-\-indep
+Automatically set the package class to arch-independent binary, skipping the question.
 .TP
 .I \-m, \-\-multi
 Automatically set the package class to Multiple binary, skipping the question.
@@ -147,7 +158,9 @@ Applies a customization template to an existing debian directory.
 .TP
 .I \-p, \-\-packagename <name>
 Force the package name to be <name>, good for packages with hyphens in their
-name or other strangeness.
+name or other strangeness. You can also make the parameter <name>_<version>
+which will set both the package name and version and bypass and directory
+checking.
 .TP
 .I \-d, \-\-defaultless
 Skips applying the default templates to the target debian directory.
