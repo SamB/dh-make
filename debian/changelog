@@ -1,6 +1,5 @@
-dh-make (0.48) UNRELEASED; urgency=low
+dh-make (0.48) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Standards version now 3.8.1
   * License will be version 3 of GPL/LGPL but has options to change it
   * Closes: #513989
@@ -8,9 +7,9 @@ dh-make (0.48) UNRELEASED; urgency=low
   * Fixed gpl template file Closes: #507060, #518162
   * Added apache license template Closes: #516624
   * Adjusted -p option so you can set version too Closes: #226025
-  * Tempalates for arch-indep added Closes: #209231
+  * Templates for arch-indep added Closes: #209231
 
- -- Craig Small <csmall@debian.org>  Thu, 12 Mar 2009 19:08:22 +1100
+ -- Craig Small <csmall@debian.org>  Sun, 15 Mar 2009 09:35:09 +1100
 
 dh-make (0.47) unstable; urgency=low
 
