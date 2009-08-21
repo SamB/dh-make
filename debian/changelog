@@ -1,8 +1,13 @@
 dh-make (0.49) UNRELEASED; urgency=low
 
+  [ Craig Small ]
   * NOT RELEASED YET
 
- -- Craig Small <csmall@debian.org>  Sun, 15 Mar 2009 09:37:45 +1100
+  [ Bernd Zeimetz ]
+  * Fixing dhusername comment in manpage.xml.ex to use existing
+    entities.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Fri, 21 Aug 2009 11:24:38 +0200
 
 dh-make (0.48) unstable; urgency=low
 

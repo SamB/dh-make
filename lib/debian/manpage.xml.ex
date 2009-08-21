@@ -47,7 +47,7 @@ man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
   <!-- Fill in your name for FIRSTNAME and SURNAME. -->
   <!ENTITY dhfirstname "FIRSTNAME">
   <!ENTITY dhsurname   "SURNAME">
-  <!-- dhusername could also be set to "&firstname; &surname;". -->
+  <!-- dhusername could also be set to "&dhfirstname; &dhsurname;". -->
   <!ENTITY dhusername  "#USERNAME#">
   <!ENTITY dhemail     "#EMAIL#">
   <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
