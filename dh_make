@@ -86,6 +86,7 @@ sub process_file(@)
       $line =~ s/#PATCH_CLEAN#/$main::PATCH_CLEAN/g;
       $line =~ s/#PATCH_STAMP#/$main::PATCH_STAMP/g;
       $line =~ s/#BUILD_DEPS#/$main::BUILD_DEPS/g;
+      $line =~ s/#DH7_ADDON#/$main::DH7_ADDON/g;
       print OUT $line;
     }
     close IN;
@@ -527,6 +528,7 @@ foreach $orig (@ORIG)
 
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $MAKE, $CDBS_CLASS );
 our $BUILD_DEPS = 'debhelper (>= 7)';
+our $DH7_ADDON = '';
 if ($package_type eq "b") {
   $BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
 }
@@ -550,7 +552,8 @@ if ($dpatch) {
 		$PATCH_CLASS = "include /usr/share/quilt/quilt.make";
 		$PATCH_STAMP = "\$(QUILT_STAMPFN)";
 		$PATCH_CLEAN = "unpatch";
-		$BUILD_DEPS = 'quilt, '.$BUILD_DEPS;
+		$BUILD_DEPS = 'quilt (>= 0.46-7~), '.$BUILD_DEPS;
+ 		$DH7_ADDON = '--with quilt '.$DH7_ADDON;
 	}
 }
 

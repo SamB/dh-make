@@ -9,6 +9,10 @@ dh-make (0.49) UNRELEASED; urgency=low
 
   [ أحمد المحمودي (Ahmed El-Mahmoudy) ]
   * Standards version now 3.8.3
+  * Simplified debhelper rules files.
+  * Added DH7_ADDON substitution variable
+  * For quilt patch system, BUILD_DEP on version 0.46-7~ to support debhelper 
+    7 addon system.
 
  -- Bernd Zeimetz <bzed@debian.org>  Fri, 21 Aug 2009 11:24:38 +0200
 
