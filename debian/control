@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
 Build-Depends: debhelper  (>= 7)
-Standards-Version: 3.8.1
+Standards-Version: 3.8.3
 Vcs-Browser: http://svn.debian.org/wsvn/collab-maint/deb-maint/
 Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/dh-make
 
