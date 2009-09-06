@@ -1,8 +1,9 @@
 #!/usr/bin/perl 
 #
-# dh_make - Script to Debianize a source archive
+# dh_make - Script to prepare Debian packaging for an original source archive
 #
 use Getopt::Long;
+use File::Basename;
 use Cwd;
 use strict;
 
@@ -42,6 +43,7 @@ our $overlay = "";
 our $forced_package_name="";
 our @filenames;
 our $filename;
+our $SOURCE_EXTRADOCS="";
 our ($email, $date);
 
 sub process_file(@)
@@ -86,7 +88,9 @@ sub process_file(@)
       $line =~ s/#PATCH_CLEAN#/$main::PATCH_CLEAN/g;
       $line =~ s/#PATCH_STAMP#/$main::PATCH_STAMP/g;
       $line =~ s/#BUILD_DEPS#/$main::BUILD_DEPS/g;
+      $line =~ s/#SOURCE_FILE_BASE#/$main::source_file_base/g;
       $line =~ s/#DH7_ADDON#/$main::DH7_ADDON/g;
+	  $line =~ s/#SOURCE_EXTRADOCS#/$main::source_extradocs/g;
       print OUT $line;
     }
     close IN;
@@ -95,7 +99,7 @@ sub process_file(@)
 
 sub show_version
 {
-  print "dh_make - Script to Debianize a regular source archive, version $main::DH_MAKE_VERSION\n\n";
+  print "dh_make - prepare Debian packaging for an original source archive, version $main::DH_MAKE_VERSION\n\n";
   print "Copyright (C) 1998-2009 Craig Small <csmall\@debian.org>\n";
   print "This is free software; see the source for copying conditions.  There is NO\n";
   print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
@@ -419,6 +423,7 @@ chomp $shortdate;
 our $year = qx(LC_ALL=C date '+%Y');
 chomp $year;
 parse_args();
+our $source_file_base=basename($source_file);
 if ( ! $overlay eq "" )
 {
   #setup for overlay mode
@@ -535,6 +540,15 @@ if ($package_type eq "b") {
 
 our ($PATCH_CLASS,$PATCH_STAMP,$PATCH_CLEAN);
 if ($dpatch) {
+	$SOURCE_EXTRADOCS=
+"This package uses dpatch to manage all modifications to the upstream\n
+source.  Changes are stored in the source package as diffs in\n
+debian/patches and applied during the build.  Please see:\n
+\n
+    /usr/share/doc/dpatch/README.source\n
+\n
+for more information on how to apply the patches, modify patches, or\n
+remove a patch.\n";
 	if ($package_type eq "b") {
 		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/dpatch.mk";
 	}
@@ -545,6 +559,16 @@ if ($dpatch) {
 		$BUILD_DEPS = 'dpatch, '.$BUILD_DEPS;
 	}
 } elsif ($quilt) {
+	$SOURCE_EXTRADOCS=
+"This package uses quilt to manage all modifications to the upstream\n
+source.  Changes are stored in the source package as diffs in\n
+debian/patches and applied during the build.  Please see:\n
+\n
+    /usr/share/doc/quilt/README.source\n
+\n
+for more information on how to apply the patches, modify patches, or\n
+remove a patch.\n";
+
 	if ($package_type eq "b") {
 		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/patchsys-quilt.mk";
 	}

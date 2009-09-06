@@ -14,7 +14,19 @@ dh-make (0.49) UNRELEASED; urgency=low
   * For quilt patch system, BUILD_DEP on version 0.46-7~ to support debhelper 
     7 addon system.
 
- -- Bernd Zeimetz <bzed@debian.org>  Fri, 21 Aug 2009 11:24:38 +0200
+  [ Craig Small ]
+  * Removed example dirs file Closes: #540370
+  * LSB example init.d exits 0 Closes: #531602
+  * Applied Ben's 'Debianize' patches Closes: #522363
+  * Removed dh_python from debiank rules, others gone already due to
+    simple rules Closes: #493888
+  * Fixed #PACKAGE typo in init.d.lsb.ex Closes: #531092
+  * SOURCE_FILE_BASE defined Closes: #446381
+  * Adjusted the notes in the license files and added README about it
+    Closes: #540740
+  * Added README.source example Closes: #543395
+
+ -- Craig Small <csmall@debian.org>  Sun, 06 Sep 2009 18:36:14 +1000
 
 dh-make (0.48) unstable; urgency=low
 

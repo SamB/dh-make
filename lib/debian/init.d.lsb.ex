@@ -39,8 +39,8 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 DAEMON=/usr/sbin/#PACKAGE# # Introduce the server's location here
-NAME=#PACKAGE              # Introduce the short server's name here
-DESC=#PACKAGE              # Introduce a short description here
+NAME=#PACKAGE#             # Introduce the short server's name here
+DESC=#PACKAGE#             # Introduce a short description here
 LOGDIR=/var/log/#PACKAGE#  # Log directory to use
 
 PIDFILE=/var/run/$NAME.pid
@@ -81,7 +81,7 @@ fi
 #if [ "x$RUN" != "xyes" ] ; then
 #    log_failure_msg "$NAME disabled, please adjust the configuration to your needs "
 #    log_failure_msg "and then set RUN to 'yes' in /etc/default/$NAME to enable it."
-#    exit 1
+#    exit 0
 #fi
 
 # Check that the user exists (if we set a user)
@@ -93,7 +93,7 @@ if [ -n "$DAEMONUSER" ] ; then
         DAEMONGID=`getent passwd |grep "^$DAEMONUSER:" | awk -F : '{print $4}'`
     else
         log_failure_msg "The user $DAEMONUSER, required to run $NAME does not exist."
-        exit 1
+        exit 0
     fi
 fi
 
@@ -174,7 +174,7 @@ force_stop() {
             sleep "$DIETIME"s
             if running ; then
                 echo "Cannot kill $NAME (pid=$pid)!"
-                exit 1
+                exit 0
             fi
         fi
     fi
@@ -253,7 +253,7 @@ case "$1" in
         else
             log_progress_msg "apparently not running"
             log_end_msg 1
-            exit 1
+            exit 0
         fi
         ;;
   # Use this if the daemon cannot reload
@@ -277,12 +277,12 @@ case "$1" in
           # Process died after we tried to reload
           #       log_progress_msg "died on reload"
           #       log_end_msg 1
-          #       exit 1
+          #       exit 0
           #    fi
           # else
           #    log_progress_msg "server is not running"
           #    log_end_msg 1
-          #    exit 1
+          #    exit 0
           # fi
                                                                                     #;;
 

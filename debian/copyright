@@ -1,4 +1,4 @@
-dh-make: A program to help Debian developers Debianize source trees
+dh-make: A program to prepare Debian packaging for an original source archive
 
 Copyright (C) 1998-2009 Craig Small <csmall@debian.org>
 
