@@ -541,14 +541,14 @@ if ($package_type eq "b") {
 our ($PATCH_CLASS,$PATCH_STAMP,$PATCH_CLEAN);
 if ($dpatch) {
 	$SOURCE_EXTRADOCS=
-"This package uses dpatch to manage all modifications to the upstream\n
-source.  Changes are stored in the source package as diffs in\n
-debian/patches and applied during the build.  Please see:\n
-\n
-    /usr/share/doc/dpatch/README.source\n
-\n
-for more information on how to apply the patches, modify patches, or\n
-remove a patch.\n";
+	"This package uses dpatch to manage all modifications to the upstream\n".
+	"source.  Changes are stored in the source package as diffs in\n".
+	"debian/patches and applied during the build.  Please see:\n".
+	"\n".
+	"    /usr/share/doc/dpatch/README.source\n".
+	"\n".
+	"for more information on how to apply the patches, modify patches, or\n".
+	"remove a patch.\n";
 	if ($package_type eq "b") {
 		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/dpatch.mk";
 	}
@@ -560,15 +560,14 @@ remove a patch.\n";
 	}
 } elsif ($quilt) {
 	$SOURCE_EXTRADOCS=
-"This package uses quilt to manage all modifications to the upstream\n
-source.  Changes are stored in the source package as diffs in\n
-debian/patches and applied during the build.  Please see:\n
-\n
-    /usr/share/doc/quilt/README.source\n
-\n
-for more information on how to apply the patches, modify patches, or\n
-remove a patch.\n";
-
+	"This package uses quilt to manage all modifications to the upstream\n".
+	"source.  Changes are stored in the source package as diffs in\n".
+	"debian/patches and applied during the build.  Please see:\n".
+	"\n".
+	"    /usr/share/doc/quilt/README.source\n".
+	"\n".
+	"for more information on how to apply the patches, modify patches, or\n".
+	"remove a patch.\n";
 	if ($package_type eq "b") {
 		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/patchsys-quilt.mk";
 	}
