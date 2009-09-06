@@ -1,7 +1,4 @@
-dh-make (0.49) UNRELEASED; urgency=low
-
-  [ Craig Small ]
-  * NOT RELEASED YET
+dh-make (0.49) unstable; urgency=low
 
   [ Bernd Zeimetz ]
   * Fixing dhusername comment in manpage.xml.ex to use existing
