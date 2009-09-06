@@ -90,7 +90,7 @@ sub process_file(@)
       $line =~ s/#BUILD_DEPS#/$main::BUILD_DEPS/g;
       $line =~ s/#SOURCE_FILE_BASE#/$main::source_file_base/g;
       $line =~ s/#DH7_ADDON#/$main::DH7_ADDON/g;
-	  $line =~ s/#SOURCE_EXTRADOCS#/$main::source_extradocs/g;
+	  $line =~ s/#SOURCE_EXTRADOCS#/$main::SOURCE_EXTRADOCS/g;
       print OUT $line;
     }
     close IN;
