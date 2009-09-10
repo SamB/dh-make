@@ -1,8 +1,8 @@
-dh-make (0.50) UNRELEASED; urgency=low
+dh-make (0.50) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * DH_ADDON had " and not # Closes: #546026
 
- -- Craig Small <csmall@debian.org>  Sun, 06 Sep 2009 19:01:15 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 11 Sep 2009 07:44:49 +1000
 
 dh-make (0.49) unstable; urgency=low
 
