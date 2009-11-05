@@ -1,3 +1,15 @@
+dh-make (0.52) UNRELEASED; urgency=low
+
+  * Fixed enviornment typo in manpage Closes:554392
+
+ -- Craig Small <csmall@debian.org>  Thu, 05 Nov 2009 11:24:21 +1100
+
+dh-make (0.51) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Craig Small <csmall@debian.org>  Fri, 11 Sep 2009 07:48:53 +1000
+
 dh-make (0.50) unstable; urgency=low
 
   * DH_ADDON had " and not # Closes: #546026
