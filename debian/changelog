@@ -1,14 +1,12 @@
-dh-make (0.52) UNRELEASED; urgency=low
-
-  * Fixed enviornment typo in manpage Closes:554392
-
- -- Craig Small <csmall@debian.org>  Thu, 05 Nov 2009 11:24:21 +1100
-
 dh-make (0.51) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * Fixed environment typo in manpage Closes:554392
+  * Put debian/source/format Closes: #562713
+  * Fixed minor typo in gpl2 license template Closes: #546716
+  * Canoncialize layout of license files Closes: #560593
 
- -- Craig Small <csmall@debian.org>  Fri, 11 Sep 2009 07:48:53 +1000
+ -- Craig Small <csmall@debian.org>  Fri, 08 Jan 2010 00:41:27 +1100
 
 dh-make (0.50) unstable; urgency=low
 

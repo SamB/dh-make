@@ -16,7 +16,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.8.3";
-our $DH_MAKE_VERSION="0.50";
+our $DH_MAKE_VERSION="0.51";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
                    'k' => 'Kernel Module', 'b' => 'cdbs', 'n' => 'Kernel Patch');
 
@@ -96,6 +96,28 @@ sub process_file(@)
     close IN;
     close OUT;
 }
+
+sub output_source_format
+{
+  my $outfile = "source/format";
+
+  if ( $main::overlay eq "" )
+  {
+    if ( $main::add_missing && -f $outfile) {
+      print "File $outfile exists, skipping.\n";
+      return;
+    }
+  }
+
+   open OUT, ">$outfile" or die "Unable to open file $outfile for writing: $! \n";
+   if ($main::debian_native) {
+     print OUT "3.0 (quilt)\n";
+   } else {
+     print OUT "3.0 (native)\n";
+   }
+   close OUT;
+}
+
 
 sub show_version
 {
@@ -689,6 +711,7 @@ if ( $add_missing )
   if ( ! -d 'debian')
   {
     mkdir 'debian', 0755 or die "Unable to make debian subdirectory: $! \n";
+    mkdir 'debian/source', 0755 or die "Unable to make debian/source subdirectory: $! \n";
   } else {
     print "You already have a debian/ subdirectory in the source tree.\n";
     print "dh_make will not try to overwrite anything.\n";
@@ -704,6 +727,9 @@ die "Unable to find dh_make's template directory: $! \n";
 
 if ( ! $no_defaults )
 {
+  # Source format
+  output_source_format();
+
   # General Files
   @filenames= split / |\n/, qx{(cd $DHLIB/debian && ls)};
   foreach $filename (@filenames)

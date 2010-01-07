@@ -2,7 +2,9 @@ This work was packaged for Debian by:
 
     #USERNAME# <#EMAIL#> on #DATE#
 
-It was downloaded from <url://example.com>
+It was downloaded from:
+
+    <url://example.com>
 
 Upstream Author(s):
 
@@ -11,7 +13,7 @@ Upstream Author(s):
 
 Copyright:
 
-    <Copyright (C) YYYY Name OfAuthor>
+    <Copyright (C) YYYY Firstname Lastname>
     <likewise for another author>
 
 License:
@@ -26,12 +28,11 @@ License:
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Lesser General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public
-    License along with this package; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 On Debian systems, the complete text of the GNU Lesser General
-Public License can be found in `/usr/share/common-licenses/LGPL-3'.
+Public License can be found in "/usr/share/common-licenses/LGPL-3".
 
 The Debian packaging is:
 
@@ -43,8 +44,8 @@ The Debian packaging is:
 # packaged work, as it may make Debian's contributions unacceptable upstream.
 # If you just want it to be GPL version 3, leave the following lines in.
 
-and is licensed under the GPL version 3, 
-see `/usr/share/common-licenses/GPL-3'.
+and is licensed under the GPL version 3,
+see "/usr/share/common-licenses/GPL-3".
 
 # Please also look if there are files or directories which have a
 # different copyright/license attached and list them here.
