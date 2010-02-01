@@ -1,4 +1,4 @@
-dh-make (0.51) UNRELEASED; urgency=low
+dh-make (0.51) unstable; urgency=low
 
   * NOT RELEASED YET
   * Fixed environment typo in manpage Closes:554392
