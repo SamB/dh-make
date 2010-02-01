@@ -3,7 +3,3 @@
 # Makefile for dh-make package
 %:
 	dh $@
-
-
-override_dh_install:
-	dh_install -X.svn

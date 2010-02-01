@@ -9,8 +9,9 @@ dh-make (0.51) UNRELEASED; urgency=low
   * Put sudo warning in dh_make.1 Closes: #483662
   * Added support for bz2 and lzma source packages
   * Removed check for name-version-orig.tar.gz Closes: #558373
+  * Updated debhelper dependency to 7
 
- -- Craig Small <csmall@debian.org>  Mon, 01 Feb 2010 22:18:50 +1100
+ -- Craig Small <csmall@debian.org>  Mon, 01 Feb 2010 22:51:10 +1100
 
 dh-make (0.50) unstable; urgency=low
 

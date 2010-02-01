@@ -2,14 +2,14 @@ Source: dh-make
 Section: devel
 Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
-Build-Depends: debhelper  (>= 7)
+Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.8.4
 Vcs-Browser: http://svn.debian.org/wsvn/collab-maint/deb-maint/
 Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/dh-make
 
 Package: dh-make
 Architecture: all
-Depends: debhelper (>= 5), make, ${perl:Depends}, dpkg-dev, ${misc:Depends}
+Depends: debhelper (>= 7), make, ${perl:Depends}, dpkg-dev, ${misc:Depends}
 Conflicts: ldap-utils (<< 2.0.0-0)
 Suggests: build-essential
 Description: tool that converts source archives into Debian package source
