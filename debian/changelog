@@ -1,6 +1,5 @@
 dh-make (0.51) unstable; urgency=low
 
-  * NOT RELEASED YET
   * Fixed environment typo in manpage Closes:554392
   * Put debian/source/format Closes: #562713
   * Fixed minor typo in gpl2 license template Closes: #546716
