@@ -1,0 +1,2 @@
+dh_make usr/bin
+lib usr/share/debhelper/dh_make
