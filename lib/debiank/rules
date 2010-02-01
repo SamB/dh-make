@@ -58,7 +58,9 @@ kdist_config: prep-deb-files
 # kdist* rules. It is responsible for cleaning up any changes that have
 # been made by the other kdist_commands (except for the .deb files created)
 kdist_clean: clean
-	$(MAKE) $(MFLAGS) -f debian/rules clean
+	dh_testdir
+	dh_clean
+	$(MAKE) $(MFLAGS) clean
 #	rm -f driver/*.o driver/*.ko
 #
 ### end  KERNEL SETUP

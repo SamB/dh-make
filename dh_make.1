@@ -1,4 +1,4 @@
-.TH DH_MAKE 8 "12 March 2009" "Debian Project" \" -*- nroff -*-
+.TH DH_MAKE 8 "1 February 2010" "Debian Project" \" -*- nroff -*-
 .SH NAME
 dh_make \- prepare Debian packaging for an original source archive
 .SH SYNOPSIS
@@ -232,6 +232,9 @@ $ DEBFULLNAME="John Doe" \\
 .br
 \-\-file ../foo.tar.gz 
 
+.SH BUGS
+.B dh_make 
+may not detect your username and email address correctly when using sudo.
 .SH SEE ALSO
 .BR "dpkg(1), dpkg\-buildpackage(1), debhelper(1), make\-kpkg(1), debhelper(7)"
 .P

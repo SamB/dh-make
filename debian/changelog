@@ -5,8 +5,12 @@ dh-make (0.51) UNRELEASED; urgency=low
   * Put debian/source/format Closes: #562713
   * Fixed minor typo in gpl2 license template Closes: #546716
   * Canoncialize layout of license files Closes: #560593
+  * Fixed kdist_clean target Closes: #432816
+  * Put sudo warning in dh_make.1 Closes: #483662
+  * Added support for bz2 and lzma source packages
+  * Removed check for name-version-orig.tar.gz Closes: #558373
 
- -- Craig Small <csmall@debian.org>  Fri, 08 Jan 2010 00:41:27 +1100
+ -- Craig Small <csmall@debian.org>  Mon, 01 Feb 2010 22:18:50 +1100
 
 dh-make (0.50) unstable; urgency=low
 
