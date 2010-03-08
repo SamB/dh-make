@@ -112,7 +112,7 @@ sub output_source_format
 	}
 
 	open OUT, ">$outfile" or die "Unable to open file $outfile for writing: $! \n";
-	if ($main::debian_native)
+	if ($debian_native)
    	{
 		print OUT "3.0 (native)\n";
 	} else {
