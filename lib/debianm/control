@@ -5,6 +5,8 @@ Maintainer: #USERNAME# <#EMAIL#>
 Build-Depends: #BUILD_DEPS#
 Standards-Version: #POLICY#
 Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://git.debian.org/collab-maint/#PACKAGE#.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/#PACKAGE#.git;a=summary
 
 Package: #PACKAGE#
 Architecture: any

@@ -9,7 +9,7 @@ dh_make \- prepare Debian packaging for an original source archive
 [\-\-library] [\-\-single] [\-\-indep] [\-\-multi] [\-\-kmod] [\-\-kpatch] 
 [\-\-addmissing]
 [\-\-templates directory] [\-\-defaultless] [\-\-overlay directory]
-[\-\-packagename name] [\-\-dpatch] [\-\-quilt]
+[\-\-packagename name] [\-\-dpatch] 
 [\-\-help] [\-\-version]
 .SH DESCRIPTION
 .B dh_make
@@ -170,10 +170,9 @@ Display the name, version, available options and authors, and exit
 successfully.
 .TP
 .I \-\-dpatch
-The new package will use dpatch to manage patches.
-.TP
-.I \-\-quilt
-The new package will use quilt to manage patches.
+The new package will use dpatch to manage patches. This option is deprecated
+and will be removed in future versions of \fBdh\_make\fR. Use the quilt
+patch system which is built into the source package.
 .TP
 .I \-v, \-\-version
 Show the program name and version, and exit successfully.

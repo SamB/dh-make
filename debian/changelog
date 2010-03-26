@@ -1,3 +1,13 @@
+dh-make (0.53) unstable; urgency=low
+
+  * Increased debhelper dependency to 7.0.50
+  * Removed quilt option and marked dpatch as deprecated
+  * Recover if debian/source doesnt exist Closes: #574918
+  * init.d template follows skeleton Closes: #552461
+  * Vcs example lines in template control files Closes: #574005
+
+ -- Craig Small <csmall@debian.org>  Fri, 26 Mar 2010 21:48:07 +1100
+
 dh-make (0.52) unstable; urgency=low
 
   * Minor dh_make.1 improvements Closes: #572408
