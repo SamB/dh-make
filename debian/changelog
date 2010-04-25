@@ -1,3 +1,10 @@
+dh-make (0.54) unstable; urgency=low
+
+  * Fixed problem with checking debian/source not source Closes: #576523
+  * Changed debhelper dependency to 7.0.50~ Closes: #577537
+
+ -- Craig Small <csmall@debian.org>  Sun, 25 Apr 2010 16:19:58 +1000
+
 dh-make (0.53) unstable; urgency=low
 
   * Increased debhelper dependency to 7.0.50

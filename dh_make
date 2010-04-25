@@ -16,7 +16,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.8.4";
-our $DH_MAKE_VERSION="0.53";
+our $DH_MAKE_VERSION="0.54";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library', 'm' => 'Multi-Binary',
 					 'k' => 'Kernel Module', 'b' => 'cdbs', 'n' => 'Kernel Patch');
 
@@ -110,9 +110,9 @@ sub output_source_format
 		}
 	}
 
-	if ( ! -d 'debian/source' )
+	if ( ! -d 'source' )
 	{
-		mkdir 'debian/source', 0755 or die "Unable to make debian/source subdirectory: $! \n";
+		mkdir 'source', 0755 or die "Unable to make debian/source subdirectory: $! \n";
 	}
 
 	open OUT, ">$outfile" or die "Unable to open file $outfile for writing: $! \n";
@@ -536,7 +536,7 @@ foreach $orig (@ORIG)
 }
 
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $MAKE, $CDBS_CLASS );
-our $BUILD_DEPS = 'debhelper (>= 7.0.50)';
+our $BUILD_DEPS = 'debhelper (>= 7.0.50~)';
 our $DH7_ADDON = '';
 if ($package_type eq "b") {
 	$BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
