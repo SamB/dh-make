@@ -1,3 +1,12 @@
+dh-make (0.55) unstable; urgency=low
+
+  * Put options last for dh $@ in rules file Closes: #583720
+  * Fixed load-path for emacsen-startup.ex Closes: #583529
+  * Changed docbook path from nwalsh to docbook-xsl Closes: #581846
+  * Added Independent package type description Closes: #581494
+
+ -- Craig Small <csmall@debian.org>  Mon, 31 May 2010 21:54:35 +1000
+
 dh-make (0.54) unstable; urgency=low
 
   * Fixed problem with checking debian/source not source Closes: #576523

@@ -8,14 +8,14 @@
           -''-param man.charmap.use.subset "0" \
           -''-param make.year.ranges "1" \
           -''-param make.single.year.ranges "1" \
-          /usr/share/xml/docbook/stylesheet/nwalsh/manpages/docbook.xsl \
+          /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl \
           manpage.xml'
 
 A manual page <package>.<section> will be generated. You may view the
 manual page with: nroff -man <package>.<section> | less'. A typical entry
 in a Makefile or Makefile.am is:
 
-DB2MAN = /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl
+DB2MAN = /usr/share/sgml/docbook/stylesheet/xsl/docbook-xsl/manpages/docbook.xsl
 XP     = xsltproc -''-nonet -''-param man.charmap.use.subset "0"
 
 manpage.1: manpage.xml
