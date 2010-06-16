@@ -16,7 +16,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.8.4";
-our $DH_MAKE_VERSION="0.55";
+our $DH_MAKE_VERSION="0.56";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module', 'b' => 'cdbs',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
