@@ -1,15 +1,16 @@
-.TH DH_MAKE 8 "1 February 2010" "Debian Project" \" -*- nroff -*-
+.TH DH_MAKE 8 "19 June 2010" "Debian Project" \" -*- nroff -*-
 .SH NAME
 dh_make \- prepare Debian packaging for an original source archive
 .SH SYNOPSIS
 .B dh_make
-[\-bnlsmiadh] [\-c license] [\-e address] [\-f file] [\-t directory]
+[\-nlsmiadhr] [\-c license] [\-e address] [\-f file] [\-t directory]
 [\-o directory] [\-p name] [\-\-copyright license]
 [\-\-email address] [\-\-native] [\-\-file file]
 [\-\-library] [\-\-single] [\-\-indep] [\-\-multi] [\-\-kmod] [\-\-kpatch] 
 [\-\-addmissing]
 [\-\-templates directory] [\-\-defaultless] [\-\-overlay directory]
 [\-\-packagename name] [\-\-dpatch] 
+[\-\-rulesformat format]
 [\-\-help] [\-\-version]
 .SH DESCRIPTION
 .B dh_make
@@ -46,10 +47,6 @@ containing documentation and C headers.
 The package will generate a binary\-all kernel module \-source package for
 use with the make\-kpkg command. It also generates a binary package for
 additional utilities, daemons, etc. that may come with the source.
-.TP
-.B cdbs (b)
-The package will be build using the Common Debian Build System.
-CDBS provides a sane set of default rules upon which packages can build.
 .TP
 .B Kernel patch
 The package will generate a package that can be used for kernel patches.
@@ -141,9 +138,6 @@ Automatically set the package class to Multiple binary, skipping the question.
 .I \-k, \-\-kmod
 Automatically set the package class to Kernel module, skipping the question.
 .TP
-.I \-b, \-\-cdbs
-Automatically set package class to cdbs, skipping the question.
-.TP
 .I \-\-kpatch
 Automatically set package class to kpatch, skipping the question.
 .TP
@@ -173,6 +167,11 @@ successfully.
 The new package will use dpatch to manage patches. This option is deprecated
 and will be removed in future versions of \fBdh\_make\fR. Use the quilt
 patch system which is built into the source package.
+.TP
+.I \-r, \-\-rulesformat <format>
+Set the format for the debian/rules file to <format>. The options are
+the default Debhelper v7 minimal rules (dh7), the old rules format (old)
+or CDBS format (cdbs).
 .TP
 .I \-v, \-\-version
 Show the program name and version, and exit successfully.

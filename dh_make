@@ -16,10 +16,12 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.8.4";
-our $DH_MAKE_VERSION="0.56";
+our $DH_MAKE_VERSION="0.57";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
-   	'm' => 'Multi-Binary', 'k' => 'Kernel Module', 'b' => 'cdbs',
+   	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
+my %rules_formatS = ('7' => 'Debhelper v7+', 'old' => 'old debhelper',
+	'c' => 'cdbs');
 
 our $DASHLINE="";
 
@@ -30,6 +32,7 @@ our $package_name="";
 our $cap_package_name="";
 our $version="";
 our $fullname = "";
+our $rules_format = "";
 our $source_file="";
 our $debian_native = 0;
 our $copy_dir_for_orig = 0;
@@ -146,19 +149,20 @@ sub show_help
   -e, --email <address>     use <address> as the maintainer e-mail address
   -n, --native              the program is Debian native, don\'t generate .orig
   -f, --file <file>         specify file to use as the original source archive
-  -r, --createorig          make a copy for the original source archive
+      --createorig          make a copy for the original source archive
   -s, --single              set package class to single
   -i, --indep				set package class to arch-independent
   -m, --multi               set package class to multiple binary
   -l, --library             set package class to library
   -k, --kmod                set package class to kernel module
       --kpatch              set package class to kernel patch
-  -b, --cdbs                set package class to cdbs
   -a, --addmissing          reprocess package and add missing files
   -t, --templates <dir>      apply customizing templates in <dir>
   -d  --defaultless         skip the default debian and package class templates
   -o, --overlay <dir>       reprocess package using template in <dir>
   -p, --packagename <name>  force package name to be <name>
+  -r, --ruleformat <fmt>    Set the format of debian/rules file
+                            (old|dh7|cdbs)
   -h, --help                display this help screen and exit
   -v, --version             show the version and exit
 
@@ -170,13 +174,13 @@ EOF
 
 sub parse_args
 {
-	my ($dohelp,$doversion, $single,$indep,$multi,$library,$kmod,$kpatch,$cdbs );
+	my ($dohelp,$doversion, $single,$indep,$multi,$library,$kmod,$kpatch);
 	if (GetOptions(
 			'copyright|c=s' => \$main::license,
 		  	'dpatch' => \$dpatch,
 			'email|e=s' => \$main::email,
 			'file|f=s' => \$main::source_file,
-			'createorig|r' => \$main::copy_dir_for_orig,
+			'createorig' => \$main::copy_dir_for_orig,
 			'help|h' => \$dohelp,
 			'version|v' => \$doversion,
 			'native|n' => \$main::debian_native,
@@ -186,8 +190,8 @@ sub parse_args
 			'library|l' => \$library,
 			'kmod|k' => \$kmod,
 			'kpatch' => \$kpatch,
-			'cdbs|b' => \$cdbs,
 			'addmissing|a' => \$main::add_missing,
+			'ruleformat|r' => \$main::rules_format,
 			'templates|t=s' => \$main::custom,
 			'defaultless|d' => \$main::no_defaults,
 			'overlay|o=s' => \$main::overlay,
@@ -238,10 +242,6 @@ sub parse_args
 	{
 		$main::package_type = 'n';
 	}
-	if ($cdbs)
-	{
-		$main::package_type = 'b';
-	}
 	$main::license = lc $main::license;
 	if ($main::license ne "" && !($main::license =~ /^(gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3|artistic|bsd|blank|apache)$/))
 	{ 
@@ -251,6 +251,19 @@ sub parse_args
 	# Change the non-versioned into the latest version
 	$main::license = "gpl3" if ($main::license eq "gpl");
 	$main::license = "lgpl3" if ($main::license eq "lgpl");
+
+	# Verifuly ruletype
+	$main::rules_format = lc $main::rules_format;
+	if ($main::rules_format eq "")
+	{
+		$main::rules_format = "v7";
+	} else {
+		if ($main::rules_format !~ /^(v7|old|cdbs)$/)
+		{
+			print "Rule Format \"$main::rules_format\" is not v7, old or cdbs.\n";
+			exit;
+		}
+	}
 }
 
 sub get_username
@@ -742,6 +755,18 @@ if ( $custom ne "" )
 	} else {
 		print "Unable to find the customization directory, $custom\n";
 	}
+}
+
+if ( -f "rules")
+{
+	print "File rules already exists, skipping.\n";
+} else {
+	if ( ! -f "rules.$rules_format")
+	{
+		print "Cannot find rules file for rules format \"$rules_format\".\n";
+		exit;
+	}
+	system('mv', "rules.$rules_format", "rules");
 }
 
 # kernel-patch kpatch file name

@@ -1,6 +1,7 @@
 dh-make (0.56) unstable; urgency=low
 
-  * Put old rules files in, as an option
+  * cdbs is no longer a package type by a rules format
+  * New option rulesformat or -r which can be dh7,old or cdbs
 
  -- Craig Small <csmall@debian.org>  Wed, 16 Jun 2010 22:55:13 +1000
 
