@@ -24,7 +24,7 @@ The Debian packaging is:
 
     Copyright (C) #YEAR# #USERNAME# <#EMAIL#>
 
-# Please chose a license for your packaging work. If the program you package
+# Please choose a license for your packaging work. If the program you package
 # uses a mainstream license, using the same license is the safest choice.
 # Please avoid to pick license terms that are more restrictive than the
 # packaged work, as it may make Debian's contributions unacceptable upstream.
