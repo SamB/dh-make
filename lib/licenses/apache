@@ -33,18 +33,14 @@ License:
 On Debian systems, the complete text of the Apache version 2.0 license
 can be found in "/usr/share/common-licenses/Apache-2.0".
 
-The Debian packaging is:
+Debian packaging copyright:
 
     Copyright (C) #YEAR# #USERNAME# <#EMAIL#>
 
-# Please choose a license for your packaging work. If the program you package
-# uses a mainstream license, using the same license is the safest choice.
-# Please avoid to pick license terms that are more restrictive than the
-# packaged work, as it may make Debian's contributions unacceptable upstream.
-# If you just want it to be GPL version 3, leave the following lines in.
+Debian packaging license:
 
-and is licensed under the GPL version 3,
-see "/usr/share/common-licenses/GPL-3".
+   Licensed under the Apache License, Version 2.0 (the "License");
+   see above for License details.
 
 # Please also look if there are files or directories which have a
 # different copyright/license attached and list them here.

@@ -15,8 +15,8 @@ $Getopt::Long::autoabbrev = 0;
 
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
-our $POLICY_VERSION="3.8.4";
-our $DH_MAKE_VERSION="0.57";
+our $POLICY_VERSION="3.9.1";
+our $DH_MAKE_VERSION="0.56";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
@@ -26,7 +26,6 @@ my %rules_formatS = ('7' => 'Debhelper v7+', 'old' => 'old debhelper',
 our $DASHLINE="";
 
 our $license="";
-our $dpatch="";
 our $username="";
 our $package_name="";
 our $cap_package_name="";
@@ -35,7 +34,7 @@ our $fullname = "";
 our $rules_format = "";
 our $source_file="";
 our $debian_native = 0;
-our $copy_dir_for_orig = 0;
+our $create_orig_tar = 0;
 our $package_type="";
 our $CHANGELOG="";
 our $PRESERVE="";
@@ -133,7 +132,7 @@ sub output_source_format
 sub show_version
 {
 	print "dh_make - prepare Debian packaging for an original source archive, version $main::DH_MAKE_VERSION\n\n";
-	print "Copyright (C) 1998-2010 Craig Small <csmall\@debian.org>\n";
+	print "Copyright (C) 1998-2011 Craig Small <csmall\@debian.org>\n";
 	print "This is free software; see the source for copying conditions.  There is NO\n";
 	print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
 }
@@ -144,12 +143,12 @@ sub show_help
 	print <<EOF
   Usage: dh_make [options]
   -c, --copyright <type>    use <type> of license in copyright file
-                            (apache|artistic|bsd|gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3)
-      --dpatch              using dpatch to maintain patches
+                            (apache|artistic|bsd|gpl|gpl2|gpl3|lgpl|lgpl2|
+                             lgpl3|x11)
   -e, --email <address>     use <address> as the maintainer e-mail address
   -n, --native              the program is Debian native, don\'t generate .orig
   -f, --file <file>         specify file to use as the original source archive
-      --createorig          make a copy for the original source archive
+      --createorig          create orig.tar.gz file
   -s, --single              set package class to single
   -i, --indep				set package class to arch-independent
   -m, --multi               set package class to multiple binary
@@ -177,10 +176,9 @@ sub parse_args
 	my ($dohelp,$doversion, $single,$indep,$multi,$library,$kmod,$kpatch);
 	if (GetOptions(
 			'copyright|c=s' => \$main::license,
-		  	'dpatch' => \$dpatch,
 			'email|e=s' => \$main::email,
 			'file|f=s' => \$main::source_file,
-			'createorig' => \$main::copy_dir_for_orig,
+			'createorig' => \$main::create_orig_tar,
 			'help|h' => \$dohelp,
 			'version|v' => \$doversion,
 			'native|n' => \$main::debian_native,
@@ -243,9 +241,9 @@ sub parse_args
 		$main::package_type = 'n';
 	}
 	$main::license = lc $main::license;
-	if ($main::license ne "" && !($main::license =~ /^(gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3|artistic|bsd|blank|apache)$/))
+	if ($main::license ne "" && !($main::license =~ /^(gpl|gpl2|gpl3|lgpl|lgpl2|lgpl3|artistic|bsd|blank|apache|x11)$/))
 	{ 
-		print "Copyright type \"$main::license\" is not gpl, gpl2, gpl3, lgpl, lgpl2, lgpl3, apache, artistic, bsd or blank.\n";
+		print "Copyright type \"$main::license\" is not gpl, gpl2, gpl3, lgpl, lgpl2, lgpl3, apache, artistic, bsd, blank or x11.\n";
 		exit;
 	}
 	# Change the non-versioned into the latest version
@@ -425,7 +423,6 @@ sub print_confirmation
 	print "License			: $license";
 	print 'blank' if $license eq '';
 	print "\n";
-	print "Using dpatch	 : ",($dpatch?"yes":"no"),"\n";
 	print "Type of Package : ";
 	if (exists $PACKAGE_TYPES{$package_type})
 	{
@@ -517,11 +514,8 @@ if (! $debian_native)
 				exit 1;
 			}
 		} else {
-			if (-d "../$fullname.orig")
-			{
-		  		print "Skipping copying to $fullname.orig since $fullname.orig exists.\n";
-		 	} elsif ($copy_dir_for_orig) {
-				system('cp', '-a', "../$fullname", "../$fullname.orig");
+			if ($create_orig_tar) {
+				system('tar', 'cfz', "../$package_name\_$version.orig.tar.gz");
 			} else {
 				print "Could not find $package_name\_$version.orig.tar.gz\n";
 				print "Either specify an alternate file to use with -f,\n";
@@ -532,7 +526,7 @@ if (! $debian_native)
 	}
 }
 # Figure out where documentation is
-our @DOCS= split / |\n/, qx(ls -1 N[Ee][Ww][Ss] *[Ff][Aa][Qq]* *.[Tt][Xx][Tt] README* *.README [rR]eadme* *.[rR]eadme [Bb][Uu][Gg][Ss] *[tT][oO][dD][oO]* 2>/dev/null | grep -v '^CMakeList.txt');
+our @DOCS= split / |\n/, qx(ls -1 N[Ee][Ww][Ss] *[Ff][Aa][Qq]* *.[Tt][Xx][Tt] README* *.README [rR]eadme* *.[rR]eadme [Bb][Uu][Gg][Ss] *[tT][oO][dD][oO]* 2>/dev/null | egrep -v '^CMakeLists?.txt');
 # What are our info files
 our @INFOS= split / |\n/, qx(find . -regex '.*\\.info\\(-[0-9]+\\)?');
 # Figure out where is the first changelog, assign other similar files to docs
@@ -557,27 +551,6 @@ if ($package_type eq "b") {
 }
 
 our ($PATCH_CLASS,$PATCH_STAMP,$PATCH_CLEAN);
-if ($dpatch)
-{
-	$SOURCE_EXTRADOCS=
-	"This package uses dpatch to manage all modifications to the upstream\n".
-	"source.  Changes are stored in the source package as diffs in\n".
-	"debian/patches and applied during the build.  Please see:\n".
-	"\n".
-	"	 /usr/share/doc/dpatch/README.source\n".
-	"\n".
-	"for more information on how to apply the patches, modify patches, or\n".
-	"remove a patch.\n";
-	if ($package_type eq "b")
-	{
-		$PATCH_CLASS = "include /usr/share/cdbs/1/rules/dpatch.mk";
-	} else {
-		$PATCH_CLASS = "include /usr/share/dpatch/dpatch.make";
-		$PATCH_STAMP = "patch-stamp";
-		$PATCH_CLEAN = "unpatch";
-		$BUILD_DEPS = 'dpatch, '.$BUILD_DEPS;
-	}
-}
 
 # Setup debian/rules
 if (-x "./configure" )

@@ -3,9 +3,9 @@ Section: devel
 Priority: optional
 Maintainer: Craig Small <csmall@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.8.4
-Vcs-Browser: http://svn.debian.org/wsvn/collab-maint/deb-maint/
-Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/dh-make
+Standards-Version: 3.9.1
+Vcs-Git: git://git.debian.org/collab-maint/dh-make.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/dh-make.git;a=summary
 
 Package: dh-make
 Architecture: all
