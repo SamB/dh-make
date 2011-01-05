@@ -4,5 +4,3 @@ dh-make: script-not-executable ./usr/share/debhelper/dh_make/debian/postrm.ex
 dh-make: script-not-executable ./usr/share/debhelper/dh_make/debian/emacsen-install.ex
 dh-make: script-not-executable ./usr/share/debhelper/dh_make/debian/emacsen-remove.ex
 dh-make: script-not-executable ./usr/share/debhelper/dh_make/debian/postinst.ex
-dh-make: script-not-executable ./usr/share/debhelper/dh_make/debiank/rules
-dh-make: script-not-executable ./usr/share/debhelper/dh_make/debiann/rules

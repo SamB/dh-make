@@ -22,10 +22,10 @@ be named <packagename>\-<version>. The <packagename> must be all lowercase,
 digits and dashes. If the directory name does not conform to this scheme,
 you must rename it before using 
 .B dh_make.
-Alternatively, you may be able to use the \-\-packagename option to force 
+Alternatively, you may be able to use the \fB\-\-packagename\fR option to force 
 the package name.
 .br
-.SH PACKAGE CLASSES
+.SS PACKAGE CLASSES
 .TP
 .B Single binary (s)
 The package will generate a single binary .deb package. It is the standard
@@ -40,25 +40,28 @@ package. Choose this for larger packages that need to be split.
 .TP
 .B Library (l)
 The package will generate at least two binaries. One library package
-containing just the lib in /usr/lib and another *\-dev_*.deb package
+containing just the lib in \fI/usr/lib\fR and another *\-dev_*.deb package
 containing documentation and C headers.
 .TP
 .B Kernel module (k)
 The package will generate a binary\-all kernel module \-source package for
-use with the make\-kpkg command. It also generates a binary package for
+use with the
+.BR make\-kpkg (1)
+command. It also generates a binary package for
 additional utilities, daemons, etc. that may come with the source.
 .TP
 .B Kernel patch
 The package will generate a package that can be used for kernel patches.
-.SH ACTIONS PERFORMED
-Unless \-\-native was given, 
+.SS ACTIONS PERFORMED
+Unless \fB\-\-native\fR was given, 
 .B dh_make
 makes sure a original source archive (<packagename>_<version>.orig.tar.gz)
-exists.
-If no such file exists, the file specified with \-f is copied in place.
-If no \-f is supplied either but \-\-createorig is, the current directory
-it copied into <packagename>\-<version>.orig which will be made into this
-archive by dpkg\-source later automatically.
+exists. The archive can either end with .gz or one of the other supported
+compression extensions such as bz2 or lzma.
+If no such file exists, the file specified with \fB\-f\fR is copied in place.
+If no \fB\-f\fR is supplied either but \fB\-\-createorig\fR is, the current
+directory is created into a news archive
+.I ../<packagename>\-<version>.orig.tar.gz
 The original archive is needed for other Debian tools to generate the
 diffs to the original sources required by the Debian packaging format.
 Unless there are reasons against it, this file should be the pristine
@@ -68,24 +71,25 @@ Then
 .B dh_make
 proceeds to generate a "debian" subdirectory and the necessary control
 files in the program source directory. Those control files are customized
-with the packagename and version extracted from the directory name. The
-username is looked up in the environment variable
-.B $DEBFULLNAME
-if this exists.  If not the environment variable
-.B $LOGNAME
-is used to find a name in the /etc/passwd file, and through NIS, YP and LDAP.
-The e-mail address is found in the environment and /etc/mailname.
-.PP
-If the environment variable
-.B $EMAIL
+with the packagename and version extracted from the directory name.
+
+.B dh_make
+makes several attempts to obtain the username. It first checks for the 
+environment variables \fB$DEBFULLNAME\fR, \fB$LOGNAME\fR is used to
+find a name in the \fI/etc/passwd\fR file, and through NIS, YP
+and LDAP.
+
+The e-mail address can either be specified with the -fB\-\-email\fR option
 or
-.B $DEBEMAIL
-is set, or the \-e (\-\-email) option is supplied, then that e\-mail address
-is used for the e\-mail address of the maintainer (instead of looking it
-up in the environment. An example, for bash:
-.PP
-export DEBEMAIL="jsmith@debian.org"
-.PP
+.B dh_make
+will attempt to find it. It will first check the environment variables
+\fB$DEBEMAIL\fR and then \fB$EMAIL. If they are not set then 
+.B dh_make
+will search an available LDAP directory using
+.BR ldapsearch (1)
+using \fB$LOGNAME\fR as the uid to search under.  Finally it will use
+\fB$LOGNAME\fR and \fI/etc/mailname\fR to generate an email address.
+
 .B dh_make
 will also generate example files that are also customized for the package
 generated. You can remove all files with *.ex if you wish. You can also
@@ -93,7 +97,7 @@ delete the README.Debian file if you don't have anything to put in it.
 Renaming the example files to their name without the .ex at the end (and
 editing them if necessary) will activate that feature of debhelper.
 .PP
-If the \-\-templates or \-o (\-\-overlay) option is used
+If the \fB\-\-templates\fR or \fB\-o\fR (\fB\-\-overlay\fR) option is used
 .B dh_make
 will apply a customizing template to the "debian" directory. See the
 templates described in the FILES section of this manpage for samples.
@@ -183,6 +187,9 @@ entries.
 .TP
 .B EMAIL
 Email address to use in control and changelog entries, only used if \fBDEBEMAIL\fR is no set.
+.TP
+.B LOGNAME
+Default username used for looking up email and full name in other directories.
 .SH FILES
 .TP
 .I /usr/share/debhelper/dh_make
@@ -207,30 +214,45 @@ with files specific to the native Debian packages.
 .I licenses/
 template files for the more common licenses used in Debian packages
 .SH EXAMPLES
-.TP
-To get dh\_make to use the defaults and ask you various questions about the package:
-.B dh_make
-.TP
+.PP
+To get \fBdh\_make\fR to use the defaults and ask you various questions
+about the package
+.in +4n
+.nf
+
+dh_make
+
+.fi
+.in
+.PP
 Create your single class package using the with the GPL license:
-.B dh_make
-\-s \-c gpl
-.TP
+.in +4n
+.nf
+
+dh_make \-s \-c gpl
+
+.fi
+.in
+.PP
 A more involved example where you set your name in the environment, contact \
 email and license in the options and specify the upstream file:
-$ DEBFULLNAME="John Doe" \\
-.br
-.B dh_make
-\-\-email contact@example.com \\
-.br
-\-\-copyright=bsd \\
-.br
-\-\-file ../foo.tar.gz 
+.in +4n
+.nf
 
+DEBFULLNAME="John Doe"
+.br
+dh_make \-\-email contact@example.com \-\-copyright=bsd \\
+.br
+\ \-\-file ../foo.tar.gz 
+
+.fi
+.in
 .SH BUGS
 .B dh_make 
 may not detect your username and email address correctly when using sudo.
 .SH SEE ALSO
 .BR dpkg (1), dpkg\-buildpackage (1), debhelper (1), make\-kpkg (1), debhelper (7)
 .P
-You may also want to read the Debian Policy (in /usr/share/doc/debian\-policy)
-and the New Maintainers' Guide (in /usr/share/doc/maint-guide).
+You may also want to read the Debian Policy (in
+\fI/usr/share/doc/debian\-policy \fR) and the New Maintainers' Guide (in
+\fI/usr/share/doc/maint-guide\fR).
