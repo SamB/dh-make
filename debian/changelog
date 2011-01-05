@@ -10,8 +10,9 @@ dh-make (0.56) unstable; urgency=low
   * BSD license has full copy Closes: #598409
   * Debian packaging defaults to same license as package, where possible
     Closes: #598411
+  * Updated man page to fit new/removed commands
 
- -- Craig Small <csmall@debian.org>  Tue, 04 Jan 2011 23:58:15 +1100
+ -- Craig Small <csmall@debian.org>  Wed, 05 Jan 2011 14:11:03 +1100
 
 dh-make (0.55) unstable; urgency=low
 
