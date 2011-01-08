@@ -1,3 +1,12 @@
+dh-make (0.57) unstable; urgency=low
+
+  * Fixed createorig tar line to really make the file Closes: #580804
+  * x11 license option added Closes: #522897
+  * rulesformat option handling works Closes: #609260
+  * cdbs is a rules format not a package type, fixed options Closes: #609136
+
+ -- Craig Small <csmall@debian.org>  Sat, 08 Jan 2011 18:49:28 +1100
+
 dh-make (0.56) unstable; urgency=low
 
   * cdbs is no longer a package type but a rules format

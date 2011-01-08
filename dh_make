@@ -16,11 +16,11 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.9.1";
-our $DH_MAKE_VERSION="0.56";
+our $DH_MAKE_VERSION="0.57";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
-my %rules_formatS = ('7' => 'Debhelper v7+', 'old' => 'old debhelper',
+my %RULES_FORMATS = ('7' => 'Debhelper v7+', 'old' => 'old debhelper',
 	'c' => 'cdbs');
 
 our $DASHLINE="";
@@ -156,11 +156,11 @@ sub show_help
   -k, --kmod                set package class to kernel module
       --kpatch              set package class to kernel patch
   -a, --addmissing          reprocess package and add missing files
-  -t, --templates <dir>      apply customizing templates in <dir>
+  -t, --templates <dir>     apply customizing templates in <dir>
   -d  --defaultless         skip the default debian and package class templates
   -o, --overlay <dir>       reprocess package using template in <dir>
   -p, --packagename <name>  force package name to be <name>
-  -r, --ruleformat <fmt>    Set the format of debian/rules file
+  -r, --rulesformat <fmt>   Set the format of debian/rules file
                             (old|dh7|cdbs)
   -h, --help                display this help screen and exit
   -v, --version             show the version and exit
@@ -189,7 +189,7 @@ sub parse_args
 			'kmod|k' => \$kmod,
 			'kpatch' => \$kpatch,
 			'addmissing|a' => \$main::add_missing,
-			'ruleformat|r' => \$main::rules_format,
+			'rulesformat|r=s' => \$main::rules_format,
 			'templates|t=s' => \$main::custom,
 			'defaultless|d' => \$main::no_defaults,
 			'overlay|o=s' => \$main::overlay,
@@ -258,7 +258,7 @@ sub parse_args
 	} else {
 		if ($main::rules_format !~ /^(v7|old|cdbs)$/)
 		{
-			print "Rule Format \"$main::rules_format\" is not v7, old or cdbs.\n";
+			print "Rules Format \"$main::rules_format\" is not v7, old or cdbs.\n";
 			exit;
 		}
 	}
@@ -464,7 +464,7 @@ if ( ! $no_defaults )
 {
 	while ($package_type eq "")
 	{
-		print "\nType of package: single binary, indep binary, multiple binary, library, kernel module, kernel patch or cdbs?\n [s/i/m/l/k/n/b] ";
+		print "\nType of package: single binary, indep binary, multiple binary, library, kernel module, kernel patch?\n [s/i/m/l/k/n] ";
 	 	my $type = <STDIN>;
 	 	chomp($type);
 	 	print "\n";
@@ -475,7 +475,6 @@ if ( ! $no_defaults )
 	 	$main::package_type = 'l' if $type eq 'l';
 	 	$main::package_type = 'k' if $type eq 'k';
 	 	$main::package_type = 'n' if $type eq 'n';
-	 	$main::package_type = 'b' if $type eq 'b';
 	}
 }
 
@@ -515,7 +514,7 @@ if (! $debian_native)
 			}
 		} else {
 			if ($create_orig_tar) {
-				system('tar', 'cfz', "../$package_name\_$version.orig.tar.gz");
+				system('tar', 'cfz', "../$package_name\_$version.orig.tar.gz", ".");
 			} else {
 				print "Could not find $package_name\_$version.orig.tar.gz\n";
 				print "Either specify an alternate file to use with -f,\n";
@@ -546,7 +545,7 @@ foreach $orig (@ORIG)
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $MAKE, $CDBS_CLASS );
 our $BUILD_DEPS = 'debhelper (>= 7.0.50~)';
 our $DH7_ADDON = '';
-if ($package_type eq "b") {
+if ($rules_format eq "cdbs") {
 	$BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;
 }
 
