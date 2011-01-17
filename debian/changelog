@@ -1,3 +1,10 @@
+dh-make (0.58) unstable; urgency=low
+
+  * Fixed v7/dh7 rulesformat problem Closes: #609260
+  * Changed licenses to DEP5 format
+
+ -- Craig Small <csmall@debian.org>  Mon, 17 Jan 2011 21:01:04 +1100
+
 dh-make (0.57) unstable; urgency=low
 
   * Fixed createorig tar line to really make the file Closes: #580804

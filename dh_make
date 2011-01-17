@@ -16,11 +16,11 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.9.1";
-our $DH_MAKE_VERSION="0.57";
+our $DH_MAKE_VERSION="0.58";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
-my %RULES_FORMATS = ('7' => 'Debhelper v7+', 'old' => 'old debhelper',
+my %RULES_FORMATS = ('dh7' => 'Debhelper v7+', 'old' => 'old debhelper',
 	'c' => 'cdbs');
 
 our $DASHLINE="";
@@ -254,11 +254,11 @@ sub parse_args
 	$main::rules_format = lc $main::rules_format;
 	if ($main::rules_format eq "")
 	{
-		$main::rules_format = "v7";
+		$main::rules_format = "dh7";
 	} else {
-		if ($main::rules_format !~ /^(v7|old|cdbs)$/)
+		if ($main::rules_format !~ /^(dh7|old|cdbs)$/)
 		{
-			print "Rules Format \"$main::rules_format\" is not v7, old or cdbs.\n";
+			print "Rules Format \"$main::rules_format\" is not dh7, old or cdbs.\n";
 			exit;
 		}
 	}
