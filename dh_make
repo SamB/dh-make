@@ -31,7 +31,7 @@ our $package_name="";
 our $cap_package_name="";
 our $version="";
 our $fullname = "";
-our $rules_format = "";
+our $rules_format = "dh7";
 our $source_file="";
 our $debian_native = 0;
 our $create_orig_tar = 0;
@@ -710,6 +710,13 @@ if ( ! $no_defaults )
 	@filenames = split / |\n/, qx{(cd $DHLIB/debian$package_type && ls)};
 	foreach $filename (@filenames)
 	{
+		if ( $filename=~/^rules/ )
+		{
+			if ( $filename ne "rules.$rules_format")
+			{
+				next;
+			}
+		}
 		process_file("$DHLIB/debian$package_type/$filename", $filename);
 	}
 }
