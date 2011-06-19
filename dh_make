@@ -15,8 +15,8 @@ $Getopt::Long::autoabbrev = 0;
 
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
-our $POLICY_VERSION="3.9.1";
-our $DH_MAKE_VERSION="0.58";
+our $POLICY_VERSION="3.9.2";
+our $DH_MAKE_VERSION="0.59";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
@@ -150,7 +150,7 @@ sub show_help
   -f, --file <file>         specify file to use as the original source archive
       --createorig          create orig.tar.gz file
   -s, --single              set package class to single
-  -i, --indep				set package class to arch-independent
+  -i, --indep               set package class to arch-independent
   -m, --multi               set package class to multiple binary
   -l, --library             set package class to library
   -k, --kmod                set package class to kernel module
@@ -415,15 +415,15 @@ sub get_date
 sub print_confirmation
 {
 	# Print what we have found
-	print "Maintainer name : $username\n";
-	print "Email-Address	: $email \n";
-	print "Date				: $date\n";
-	print "Package Name	 : $package_name\n";
-	print "Version			: $version\n";
-	print "License			: $license";
+	print "Maintainer name  : $username\n";
+	print "Email-Address    : $email \n";
+	print "Date             : $date\n";
+	print "Package Name     : $package_name\n";
+	print "Version          : $version\n";
+	print "License          : $license";
 	print 'blank' if $license eq '';
 	print "\n";
-	print "Type of Package : ";
+	print "Type of Package  : ";
 	if (exists $PACKAGE_TYPES{$package_type})
 	{
 		print $PACKAGE_TYPES{$package_type};
@@ -543,7 +543,7 @@ foreach $orig (@ORIG)
 }
 
 our ($CONFIG_STATUS, $CONFIGURE_STAMP, $PHONY_CONFIGURE, $CONFIGURE, $DPKG_ARCH, $INSTALL, $CLEAN, $MAKE, $CDBS_CLASS );
-our $BUILD_DEPS = 'debhelper (>= 7.0.50~)';
+our $BUILD_DEPS = 'debhelper (>= 8.0.0)';
 our $DH7_ADDON = '';
 if ($rules_format eq "cdbs") {
 	$BUILD_DEPS = 'cdbs, '.$BUILD_DEPS;

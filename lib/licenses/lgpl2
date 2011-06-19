@@ -5,13 +5,13 @@ Source: <url://example.com>
 Files: *
 Copyright: <years> <put author's name and email here>
            <years> <likewise for another author>
-License: LGPL-2.0
+License: LGPL-2.0+
 
 Files: debian/*
 Copyright: #YEAR# #USERNAME# <#EMAIL#>
-License: LGPL-2.0
+License: LGPL-2.0+
 
-License: LGPL-2.0
+License: LGPL-2.0+
  This package is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
  License as published by the Free Software Foundation; either
@@ -27,15 +27,6 @@ License: LGPL-2.0
  .
  On Debian systems, the complete text of the GNU Lesser General
  Public License can be found in "/usr/share/common-licenses/LGPL-2".
-
-# Please choose a license for your packaging work. If the program you package
-# uses a mainstream license, using the same license is the safest choice.
-# Please avoid to pick license terms that are more restrictive than the
-# packaged work, as it may make Debian's contributions unacceptable upstream.
-# If you just want it to be GPL version 3, leave the following lines in.
-
-and is licensed under the GPL version 3,
-see "/usr/share/common-licenses/GPL-3".
 
 # Please also look if there are files or directories which have a
 # different copyright/license attached and list them here.

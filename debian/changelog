@@ -1,3 +1,15 @@
+dh-make (0.59) unstable; urgency=low
+
+  * Uses debhelper version 8 Closes: #630537
+  * Fixed minor typo in dh_make.1 Closes: #611758
+  * Removed old clauses from license templates. Closes: #615924
+  * Output colons line up. Closes: #622245
+  * .la files not installed in libpackage-dev by default Closes: #620986
+  * License files use + on version to match text. Closes: #623305
+  * Update to policy version 3.9.2 - no changes
+
+ -- Craig Small <csmall@debian.org>  Sun, 19 Jun 2011 10:28:12 +1000
+
 dh-make (0.58) unstable; urgency=low
 
   * Fixed v7/dh7 rulesformat problem Closes: #609260
