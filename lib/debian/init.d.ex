@@ -5,7 +5,7 @@
 # Required-Stop:
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: <Enter a short description of the sortware>
+# Short-Description: <Enter a short description of the software>
 # Description:       <Enter a long description of the software>
 #                    <...>
 #                    <...>
