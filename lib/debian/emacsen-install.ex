@@ -33,13 +33,13 @@ fi
 install -m 755 -d ${ELCDIR}
 cd ${ELDIR}
 FILES=`echo *.el`
-cp ${FILES} ${ELCDIR}
 cd ${ELCDIR}
+ln -sf ${ELCDIR}/*.el .
 
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
 EOF
 ${FLAVOR} ${FLAGS} ${FILES}
-rm -f *.el path.el
+rm -f path.el
 
 exit 0
