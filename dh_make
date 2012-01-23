@@ -16,7 +16,7 @@ $Getopt::Long::autoabbrev = 0;
 # Some important parameters
 our $DHLIB="/usr/share/debhelper/dh_make";
 our $POLICY_VERSION="3.9.2";
-our $DH_MAKE_VERSION="0.59";
+our $DH_MAKE_VERSION="0.60";
 my %PACKAGE_TYPES = ( 's' => 'Single', 'l' => 'Library',
    	'm' => 'Multi-Binary', 'k' => 'Kernel Module',
    	'n' => 'Kernel Patch', 'i' => 'Independent' );
@@ -264,6 +264,21 @@ sub parse_args
 	}
 }
 
+sub get_logname
+{
+	# lightdm in Ubuntu 11.10 does not set LOGNAME
+	# (https://bugs.launchpad.net/bugs/875705).  Work around this by trying
+	# USER instead.
+	if (exists $logname)
+	{
+		return $logname;
+	} elsif (exists $ENV{USER}) {
+		return $ENV{USER};
+	} else {
+		die "Cannot get username; neither LOGNAME nor USER is set in the environment!\n";
+	}
+}
+
 sub get_username
 {
 	my $tmpusername = '';
@@ -274,27 +289,28 @@ sub get_username
 	}
 	return $tmpusername if ($tmpusername ne "");
 
+	my $logname = get_logname();
 	if (-x '/usr/bin/getent')
 	{
-		$tmpusername = qx(/usr/bin/getent passwd $ENV{LOGNAME}|awk -F: '\{ print \$5; \}' | cut -f1 -d,);
+		$tmpusername = qx(/usr/bin/getent passwd $logname|awk -F: '\{ print \$5; \}' | cut -f1 -d,);
 	}
 	chomp($tmpusername);
 	return $tmpusername if ($tmpusername ne "");
 
-	$tmpusername = qx(awk -F: -vUSER=$ENV{LOGNAME} '\$1 == USER \{ print \$5; \}' /etc/passwd | cut -f1 -d,);
+	$tmpusername = qx(awk -F: -vUSER=$logname '\$1 == USER \{ print \$5; \}' /etc/passwd | cut -f1 -d,);
 	chomp($tmpusername);
 	return $tmpusername if ($tmpusername ne "");
 	
 	if (-x '/usr/bin/ypmatch')
 	{
-		$tmpusername = qx(ypmatch $ENV{LOGNAME} passwd.byname|awk -F: '\{ print \$5; \}' | cut -f1 -d,);
+		$tmpusername = qx(ypmatch $logname passwd.byname|awk -F: '\{ print \$5; \}' | cut -f1 -d,);
 	}
 	chomp($tmpusername);
 	return $tmpusername if ($tmpusername ne "");
 
 	if (-x '/usr/bin/ldapsearch')
 	{
-		$tmpusername = [map {/^(?:gecos|cn): (.*)/} qx(ldapsearch -Q -LLL uid=$ENV{LOGNAME} gecos cn)]->[0];
+		$tmpusername = [map {/^(?:gecos|cn): (.*)/} qx(ldapsearch -Q -LLL uid=$logname gecos cn)]->[0];
 	}
 	chomp($tmpusername);
 	return $tmpusername if ($tmpusername ne "");
@@ -309,10 +325,10 @@ sub get_email()
 	if (-x '/usr/bin/ldapsearch')
 	{
 		my $mail;
-		$mail = [map {/^mail: (.*)/ && $1} qx(ldapsearch -Q -LLL uid=$ENV{LOGNAME} mail)]->[0];
+		$mail = [map {/^mail: (.*)/ && $1} qx(ldapsearch -Q -LLL uid=$logname mail)]->[0];
 		return $mail if $mail;
 	}
-	if ($ENV{LOGNAME} )
+	if ($logname )
 	{
 		my $mailhost;
 		if ( -e '/etc/mailname')
@@ -322,7 +338,7 @@ sub get_email()
 	 	} else {
 			$mailhost='unknown';
 	 	} 
-	 	return  ($ENV{LOGNAME} . '@' . $mailhost);
+	 	return  ($logname . '@' . $mailhost);
 	}
 }
 

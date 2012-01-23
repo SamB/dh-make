@@ -1,3 +1,9 @@
+dh-make (0.60) unstable; urgency=low
+
+  * Added logname check Closes: #646924
+
+ -- Craig Small <csmall@debian.org>  Mon, 23 Jan 2012 22:40:40 +1100
+
 dh-make (0.59) unstable; urgency=low
 
   * Uses debhelper version 8 Closes: #630537
