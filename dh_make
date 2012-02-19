@@ -269,9 +269,9 @@ sub get_logname
 	# lightdm in Ubuntu 11.10 does not set LOGNAME
 	# (https://bugs.launchpad.net/bugs/875705).  Work around this by trying
 	# USER instead.
-	if (exists $logname)
+	if (exists $ENV{LOGNAME})
 	{
-		return $logname;
+		return $ENV{LOGNAME};
 	} elsif (exists $ENV{USER}) {
 		return $ENV{USER};
 	} else {
@@ -322,6 +322,7 @@ sub get_email()
 {
 	return $ENV{DEBEMAIL} if ($ENV{DEBEMAIL} );
 	return $ENV{EMAIL} if ($ENV{EMAIL} );
+	my $logname = get_logname();
 	if (-x '/usr/bin/ldapsearch')
 	{
 		my $mail;
