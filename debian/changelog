@@ -2,8 +2,13 @@ dh-make (0.60) unstable; urgency=low
 
   * Added logname check Closes: #646924
   * emacsen-install uses symlinks Closes: #653854
+  * add --with autotools-dev in rules when using autotools-dev Closes: #633347
+  * Refer to dh not debhelper(1) in man page Closes: #640822
+  * Minor envioment typo in xml manpage Closes: #639630
+  * Permit package version 0 Closes: #638276
+  * Added avoid more restrictive license recommendation Closes: #598411
 
- -- Craig Small <csmall@debian.org>  Mon, 23 Jan 2012 22:49:20 +1100
+ -- Craig Small <csmall@debian.org>  Sun, 19 Feb 2012 15:04:09 +1100
 
 dh-make (0.59) unstable; urgency=low
 

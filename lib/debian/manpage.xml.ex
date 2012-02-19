@@ -220,7 +220,7 @@ man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
     </variablelist>
   </refsect1>
   <refsect1 id="environment">
-    <title>ENVIONMENT</title>
+    <title>ENVIRONMENT</title>
     <variablelist>
       <varlistentry>
         <term><envar>FOO_CONF</envar></term>
