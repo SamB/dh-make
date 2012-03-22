@@ -34,7 +34,7 @@ install -m 755 -d ${ELCDIR}
 cd ${ELDIR}
 FILES=`echo *.el`
 cd ${ELCDIR}
-ln -sf ${ELCDIR}/*.el .
+ln -sf ${ELDIR}/*.el .
 
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
